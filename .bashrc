@@ -23,3 +23,21 @@ export PS1="\[\e[36m\]\w\[\e[m\]
 getmethodnames() { cat $1 | grep -o '[a-zA-Z]*(' | while read -r line ; do wordt=$(echo $line | grep -o '[a-zA-z]*') ; echo $wordt ; done; }
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# Make a pandoc preview
+alias preview='open -a Preview'
+pdfview() {
+    if [ ! -z "$1" ]
+    then
+        echo "Reading file $1..."
+        echo "Compiling PDF document using LaTeX and Pandoc..."
+        pandoc $1 -o /tmp/show_pandoc.pdf && preview /tmp/show_pandoc.pdf
+        # echo "Displaying PDF document, press ENTER to continue..."
+        # read
+        # Do not remove temp file
+        # Allow next run to clean up by overwriting
+    else
+        echo "USAGE:"
+        echo "    pdfview <file>"
+    fi
+}
