@@ -1,0 +1,15 @@
+[user]
+	email = millerah@amazon.com
+	name = Miller Hall
+[color]
+	ui = auto
+[core]
+	pager = less -FMRiX
+	excludesfile = /Users/millerah/.gitignore_global
+[push]
+	default = simple
+[alias]
+	dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order --all
+[amazon]
+	append-cr-url = true
+	pull-request-by-default = true
