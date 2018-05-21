@@ -44,7 +44,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 ## Miscelaneous path and env variables
 export PATH=$PATH:/Users/millerah/.toolbox/bin                          # BuilderTools Toolbox
-export PATH=$PATH:/Users/millerah/bin                                   # Personal scripts
+export PATH=$PATH:$HOME/bin                                             # Personal scripts
 export PATH=$PATH:/usr/local/texlive/2017basic/bin/x86_64-darwin/       # LaTeX
 
 source ~/git-completion.bash                                            # Git autocomplete
