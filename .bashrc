@@ -32,7 +32,11 @@ export SSH_AUTH_SOCK=$MSSH_AUTH_SOCK    # MIDWAY SSH-AGENT: set as default
 export PATH=$PATH:/Users/millerah/bin
 
 # Python init for pyenv
-alias pyenv-init='eval "$(pyenv init -)"'
+eval "$(pyenv init -)"
+
+# Ruby init for rvm
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # BuilderTools Toolbox
 export PATH=$PATH:/Users/millerah/.toolbox/bin
