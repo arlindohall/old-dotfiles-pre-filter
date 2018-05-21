@@ -3,8 +3,8 @@
 
 RC_FILE_LIST=".bash_profile .bashrc .gitconfig .inputrc .profile .vimrc .zlogin .zshrc"
 
-cd ~/WorkDocs/rcfiles
+cd $HOME/WorkDocs/rcfiles
 
 for rcfile in $RC_FILE_LIST ; do
-  cp ~/$rcfile ./
+  cp $HOME/$rcfile ./
 done
