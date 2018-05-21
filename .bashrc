@@ -24,8 +24,11 @@ mwinit-update() {
     && chmod u+x mwinit && sudo mv mwinit /usr/local/bin/mwinit
 }
 
+# Midway path additions
+export PATH=$PATH:/usr/local/bin        # MIDWAY PATH: Path changed for ssh
+export SSH_AUTH_SOCK=$MSSH_AUTH_SOCK    # MIDWAY SSH-AGENT: set as default
+
 # Path variables
-export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/Users/millerah/bin
 
 # Python init for pyenv
