@@ -19,18 +19,6 @@ alias bwscreate='bws create -n'
 alias bball='brc --allPackages'
 alias bbra='bbr apollo-pkg'
 
-## Brazil Recursive Command
-bbr() {
-    brc echo "@@@ Building $PWD @@@" && brazil-build release
-}
-brc() {
-    echo "########## Running brazil command recursively ##########"
-    brazil-recursive-cmd "$@"
-}
-
-export -f bbr
-export -f brc
-
 ## Aliases for folders
 alias go='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsServiceTests'
 alias service='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsService'
@@ -82,3 +70,14 @@ ssh() {
 ## Miscelaneous env varibales
 export AUTO_TITLE_SCREENS="NO"
 export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
+
+## Brazil Recursive Command
+unalias bbr
+bbr() {
+    brc echo "@@@ Building $PWD @@@" && brazil-build release
+}
+brc() {
+    echo "########## Running brazil command recursively ##########"
+    brazil-recursive-cmd "$@"
+}
+
