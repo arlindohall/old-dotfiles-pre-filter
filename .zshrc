@@ -13,19 +13,29 @@ alias eh='expand-hostclass --recurse'
 alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
 alias bre='brazil-runtime-exec'
-alias brc='brazil-recursive-cmd'
 alias bws='brazil ws'
 alias bwsuse='bws use --gitMode -p'
 alias bwscreate='bws create -n'
 alias bball='brc --allPackages'
-alias bbb='brc --allPackages brazil-build'
-alias bbr='brazil-build release'
 alias bbra='bbr apollo-pkg'
 
+## Brazil Recursive Command
+bbr() {
+    brc echo "@@@ Building $PWD @@@" && brazil-build release
+}
+brc() {
+    echo "########## Running brazil command recursively ##########"
+    brazil-recursive-cmd "$@"
+}
+
+export -f bbr
+export -f brc
+
 ## Aliases for folders
-alias go='cd ~/workspace/EpimAwsServiceTests/src/EpimAwsServiceTests'
-alias ams='cd ~/workspace/AccountManagementService/src/AWSAutomationAccountManagementService'
-alias rms='cd ~/workspace/ResourceManagementService/src/AWSAutomationResourceManagementService'
+alias go='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsServiceTests'
+alias service='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsService'
+alias ams='cd $HOME/workspace/AccountManagementService/src/AWSAutomationAccountManagementService'
+alias rms='cd $HOME/workspace/ResourceManagementService/src/AWSAutomationResourceManagementService'
 
 ## Alias to kill running brazil servers (kills all jobs)
 alias brazil-kill="kill -9 \$(brazil-server-name-running)"
@@ -33,8 +43,8 @@ brazil-server-name-running() {
     jobs -l | awk '{print $3}'
 }
 
-if [ -f ~/.zshrc-dev-dsk-post ]; then
-    source ~/.zshrc-dev-dsk-post
+if [ -f $HOME/zshrc-dev-dsk-post ]; then
+    source $HOME/zshrc-dev-dsk-post
 fi
 
 # Environment Variables

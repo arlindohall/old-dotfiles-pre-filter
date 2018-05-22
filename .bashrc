@@ -17,12 +17,24 @@ alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
 alias timber='ssh epim2-tests-timberfs-iad-1a-056e4c0b.us-east-1.amazon.com'
 alias grip='/Users/millerah/.pyenv/versions/3.5.2/bin/grip'
-alias bbr='brazil-build release'
+
+## Brazil Recursive Command
+bbr() {
+    brc echo "@@@ Building $PWD @@@" && brazil-build release
+}
+brc() {
+    echo "########## Running brazil command recursively ##########"
+    brazil-recursive-cmd "$@"
+}
+
+export -f bbr
+export -f brc
 
 ## Aliases for folders
-alias go='cd ~/workspace/EpimAwsServiceTests/src/EpimAwsServiceTests'
-alias ams='cd ~/workspace/AccountManagementService/src/AWSAutomationAccountManagementService'
-alias rms='cd ~/workspace/ResourceManagementService/src/AWSAutomationResourceManagementService'
+alias go='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsServiceTests'
+alias service='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsService'
+alias ams='cd $HOME/workspace/AccountManagementService/src/AWSAutomationAccountManagementService'
+alias rms='cd $HOME/workspace/ResourceManagementService/src/AWSAutomationResourceManagementService'
 
 # Mwinit update
 mwinit-update() {
@@ -48,7 +60,7 @@ export PATH=$PATH:/Users/millerah/.toolbox/bin                          # Builde
 export PATH=$PATH:$HOME/bin                                             # Personal scripts
 export PATH=$PATH:/usr/local/texlive/2017basic/bin/x86_64-darwin/       # LaTeX
 
-source ~/git-completion.bash                                            # Git autocomplete
+source $HOME/git-completion.bash                                        # Git autocomplete
 export SHELL='/bin/bash'                                                # Avoid /bin/false errors
 
 export PS1="\[\e[36m\]\w\[\e[m\]
