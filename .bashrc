@@ -5,6 +5,7 @@ alias cdd-tunnel='ssh -N -L 13390:localhost:3389 millerah.aka.corp.amazon.com -o
 alias odin-tunnel='ssh -L 2009:localhost:2009 millerah.aka.corp.amazon.com -f -N'
 alias dvd='ssh millerah.aka.corp.amazon.com'
 alias mdvd='mssh -A millerah.aka.corp.amazon.com'
+alias meld='open -a Meld'
 
 ## Aliases for running common git commands
 alias pull-rebase='git checkout mainline && git pull && git checkout dev && git rebase mainline'
