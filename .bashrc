@@ -21,6 +21,8 @@ eval "$(pyenv init -)"
 export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"    # Load RVM into a shell session *as a function*
 
+source $HOME/git-completion.bash                                        # Git Autocompletion
+
 ## Miscelaneous path and env variables
 export PATH=$PATH:$HOME/bin                                             # Personal scripts
 export PATH=$PATH:/usr/local/texlive/2017basic/bin/x86_64-darwin/       # LaTeX
