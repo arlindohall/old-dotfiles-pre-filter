@@ -4,13 +4,13 @@
 alias meld='open -a Meld'
 
 ## Aliases for running common git commands
-alias pull-rebase='git checkout mainline && git pull && git checkout dev && git rebase mainline'
-alias push-merge='git push origin dev:mainline && git checkout mainline && git merge dev && git checkout dev'
+alias pull-rebase='git checkout master && git pull && git checkout dev && git rebase master'
+alias push-merge='git push origin dev:master && git checkout master && git merge dev && git checkout dev'
 
 ## Aliases for common commands
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
-alias grip='/Users/millerah/.pyenv/versions/3.5.2/bin/grip'
+alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
 
 # Path variables and initialization scripts (can be timely)
 
