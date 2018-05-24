@@ -20,7 +20,7 @@ alias grip='/Users/millerah/.pyenv/versions/3.5.2/bin/grip'
 
 ## Brazil Recursive Command
 bbr() {
-    brc echo "@@@ Building $PWD @@@" && brazil-build release
+    brc "echo \"@@@ Building \$(pwd) @@@\" && brazil-build release"
 }
 brc() {
     echo "########## Running brazil command recursively ##########"
