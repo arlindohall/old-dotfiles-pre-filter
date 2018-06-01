@@ -40,9 +40,8 @@ fi
 ## Path variables
 export PATH=$HOME/.toolbox/bin:$PATH
 export PATH=$PATH:$HOME/bin
-export PATH=$BRAZIL_CLI_BIN:$PATH
 
-for f in SDETools envImprovement AmazonAwsCli OdinTools; do
+for f in envImprovement AmazonAwsCli OdinTools; do
     if [[ -d /apollo/env/$f ]]; then
         export PATH=$PATH:/apollo/env/$f/bin
     fi
