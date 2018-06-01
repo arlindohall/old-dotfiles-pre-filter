@@ -37,6 +37,10 @@ fi
 
 # Environment Variables
 
+## Import other zshrc files
+source /apollo/env/WildcardOpsTools/dotfiles/zshrc
+source /apollo/env/envImprovement/var/zshrc
+
 ## Path variables
 export PATH=$HOME/.toolbox/bin:$PATH
 export PATH=$PATH:$HOME/bin
@@ -46,10 +50,6 @@ for f in envImprovement AmazonAwsCli OdinTools; do
         export PATH=$PATH:/apollo/env/$f/bin
     fi
 done
-
-## Import other zshrc files
-source /apollo/env/WildcardOpsTools/dotfiles/zshrc
-source /apollo/env/envImprovement/var/zshrc
 
 ## Tiger prompt
 export PROMPT="%{$fg[cyan]%}%~
