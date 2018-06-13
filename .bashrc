@@ -8,8 +8,16 @@ alias mdvd='mssh -A millerah.aka.corp.amazon.com'
 alias meld='open -a Meld'
 
 ## Aliases for running common git commands
-alias pull-rebase='git checkout mainline && git pull && git checkout dev && git rebase mainline'
-alias push-merge='git push origin dev:mainline && git checkout mainline && git merge dev && git checkout dev'
+alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
+alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(get_main_git_branch) && git merge dev && git checkout dev'
+
+get_main_git_branch() {
+  if [[ $(git branch) = *"mainline"* ]] ; then
+    echo mainline
+  else
+    echo master
+  fi
+}
 
 ## Aliases for common commands
 alias sshf='ssh -F /dev/null'
