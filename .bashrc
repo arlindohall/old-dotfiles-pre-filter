@@ -17,6 +17,8 @@ get_main_git_branch() {
   fi
 }
 
+export -f get_main_git_branch
+
 ## Aliases for common commands
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
