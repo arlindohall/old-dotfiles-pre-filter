@@ -21,6 +21,8 @@ get_main_git_branch() {
   fi
 }
 
+export -f get_main_git_branch
+
 ## Aliases for common commands
 alias sshf='ssh -F /dev/null'
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
