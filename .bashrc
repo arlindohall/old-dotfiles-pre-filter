@@ -4,8 +4,18 @@
 alias meld='open -a Meld'
 
 ## Aliases for running common git commands
-alias pull-rebase='git checkout master && git pull && git checkout dev && git rebase master'
-alias push-merge='git push origin dev:master && git checkout master && git merge dev && git checkout dev'
+alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
+alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(get_main_git_branch) && git merge dev && git checkout dev'
+
+get_main_git_branch() {
+  if [[ $(git branch) = *"mainline"* ]] ; then
+    echo mainline
+  elif [[ $(pwd) = *"rcfiles" ]] ; then
+    echo home
+  else
+    echo master
+  fi
+}
 
 ## Aliases for common commands
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
