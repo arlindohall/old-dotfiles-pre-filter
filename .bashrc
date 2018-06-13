@@ -14,6 +14,8 @@ alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(g
 get_main_git_branch() {
   if [[ $(git branch) = *"mainline"* ]] ; then
     echo mainline
+  elif [[ $(pwd) = *"rcfiles" ]] ; then
+    echo work
   else
     echo master
   fi
