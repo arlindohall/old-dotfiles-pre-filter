@@ -73,10 +73,12 @@ export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
 ## Brazil Recursive Command
 unalias bbr
 bbr() {
-    brc echo "@@@ Building $PWD @@@" && brazil-build release
+    brc "echo \"@@@ Building \$(pwd) @@@\" && brazil-build release"
 }
 brc() {
     echo "########## Running brazil command recursively ##########"
     brazil-recursive-cmd "$@"
 }
 
+export -f bbr
+export -f brc
