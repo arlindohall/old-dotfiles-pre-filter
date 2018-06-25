@@ -6,6 +6,7 @@ alias odin-tunnel='ssh -L 2009:localhost:2009 millerah.aka.corp.amazon.com -f -N
 alias dvd='ssh millerah.aka.corp.amazon.com'
 alias mdvd='mssh -A millerah.aka.corp.amazon.com'
 alias meld='open -a Meld'
+alias timber='ssh epim2-tests-timberfs-iad-1b-b4b79026.us-east-1.amazon.com'
 
 ## Aliases for running common git commands
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
