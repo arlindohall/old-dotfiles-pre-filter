@@ -44,10 +44,10 @@ export -f bbr
 export -f brc
 
 ## Aliases for folders
-alias go='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsServiceTests'
-alias service='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsService'
-alias ams='cd $HOME/workspace/AccountManagementService/src/AWSAutomationAccountManagementService'
-alias rms='cd $HOME/workspace/ResourceManagementService/src/AWSAutomationResourceManagementService'
+alias go='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsServiceTests'
+alias service='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsService'
+alias ams='cd $HOME/ws/AccountManagementService/src/AWSAutomationAccountManagementService'
+alias rms='cd $HOME/ws/ResourceManagementService/src/AWSAutomationResourceManagementService'
 
 # Mwinit update
 mwinit-update() {
