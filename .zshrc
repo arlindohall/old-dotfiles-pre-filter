@@ -42,6 +42,7 @@ source /apollo/env/WildcardOpsTools/dotfiles/zshrc
 source /apollo/env/envImprovement/var/zshrc
 
 ## Path variables
+export PATH=$PATH:/apollo/env/WildcardOpsTools/bin
 export PATH=$HOME/.toolbox/bin:$PATH
 export PATH=$PATH:$HOME/bin
 
