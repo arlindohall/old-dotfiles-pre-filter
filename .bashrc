@@ -23,6 +23,8 @@ export -f get_main_git_branch
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
 alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
+alias notes="cat >> $HOME/db/notes/$(date +%Y/%m%d.md)"
+
 
 # Path variables and initialization scripts (can be timely)
 
