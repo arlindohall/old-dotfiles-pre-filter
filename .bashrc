@@ -5,8 +5,8 @@ alias cdd-tunnel='ssh -N -L 13390:localhost:3389 millerah.aka.corp.amazon.com -o
 alias odin-tunnel='ssh -L 2009:localhost:2009 millerah.aka.corp.amazon.com -f -N'
 alias dvd='ssh millerah.aka.corp.amazon.com'
 alias mdvd='mssh -A millerah.aka.corp.amazon.com'
-alias meld='open -a Meld'
 alias timber='ssh epim2-tests-timberfs-iad-1b-b4b79026.us-east-1.amazon.com'
+alias sshf='ssh -F /dev/null'
 
 ## Aliases for running common git commands
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
@@ -25,10 +25,10 @@ get_main_git_branch() {
 export -f get_main_git_branch
 
 ## Aliases for common commands
-alias sshf='ssh -F /dev/null'
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
-alias timber='ssh epim2-tests-timberfs-iad-1a-056e4c0b.us-east-1.amazon.com'
+alias notes="cat >> $HOME/db/notes/$(date +%Y/%m%d.md)"
+alias meld='open -a Meld'
 alias grip='/Users/millerah/.pyenv/versions/3.5.2/bin/grip'
 
 ## Brazil Recursive Command
