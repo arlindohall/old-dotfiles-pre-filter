@@ -1,8 +1,5 @@
 # Aliases
 
-## Aliases for connecting/tunneling to dev desktop
-alias meld='open -a Meld'
-
 ## Aliases for running common git commands
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
 alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(get_main_git_branch) && git merge dev && git checkout dev'
@@ -25,7 +22,9 @@ alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resour
 alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
 alias note='vim $HOME/var/notes/$(date +%Y/%m%d.md)'
 alias notecat='cat $HOME/var/notes/$(date +%Y/%m%d.md)'
+alias notego='cd $HOME/var/notes/$(date +%Y)'
 alias n='note'
+alias meld='open -a Meld'
 
 
 # Path variables and initialization scripts (can be timely)
@@ -37,12 +36,12 @@ eval "$(pyenv init -)"
 export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"    # Load RVM into a shell session *as a function*
 
-source $HOME/git-completion.bash                                        # Git Autocompletion
 
 ## Miscelaneous path and env variables
 export PATH=$PATH:$HOME/bin                                             # Personal scripts
 export PATH=$PATH:/usr/local/texlive/2017basic/bin/x86_64-darwin/       # LaTeX
 
+source $HOME/git-completion.bash                                        # Git autocomplete
 export SHELL='/bin/bash'                                                # Avoid /bin/false errors
 
 export PS1="\[\e[36m\]\w\[\e[m\]
