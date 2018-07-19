@@ -27,12 +27,12 @@ export -f get_main_git_branch
 ## Aliases for common commands
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
-alias note="cat >> $HOME/var/notes/$(date +%Y/%m%d.md)"
-alias notecat="cat $HOME/var/notes/$(date +%Y/%m%d.md)"
-alias notesync="cd $HOME/var/notes; pull-rebase; cd -"
-alias noteindex="cd $HOME/var/notes; index; cd -"
-alias notevim="vim $HOME/var/notes/$(date +%Y/%m%d.md)"
-alias n="note"
+alias note='cat >> $HOME/var/notes/$(date +%Y/%m%d.md)'
+alias notecat='cat $HOME/var/notes/$(date +%Y/%m%d.md)'
+alias notesync='cd $HOME/var/notes; pull-rebase; cd -'
+alias noteindex='cd $HOME/var/notes; index; cd -'
+alias notevim='vim $HOME/var/notes/$(date +%Y/%m%d.md)'
+alias n='note'
 alias meld='open -a Meld'
 alias grip='/Users/millerah/.pyenv/versions/3.5.2/bin/grip'
 
