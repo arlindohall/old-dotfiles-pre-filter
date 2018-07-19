@@ -27,12 +27,12 @@ export -f get_main_git_branch
 ## Aliases for common commands
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
+alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
 alias note='vim $HOME/var/notes/$(date +%Y/%m%d.md)'
 alias notecat='cat $HOME/var/notes/$(date +%Y/%m%d.md)'
 alias notego='cd $HOME/var/notes/$(date +%Y)'
 alias n='note'
 alias meld='open -a Meld'
-alias grip='/Users/millerah/.pyenv/versions/3.5.2/bin/grip'
 
 ## Brazil Recursive Command
 bbr() {
@@ -72,7 +72,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"    # Load RVM into a shell session *as a function*
 
 ## Miscelaneous path and env variables
-export PATH=$PATH:/Users/millerah/.toolbox/bin                          # BuilderTools Toolbox
+export PATH=$PATH:$HOME/.toolbox/bin                                    # BuilderTools Toolbox
 export PATH=$PATH:$HOME/bin                                             # Personal scripts
 export PATH=$PATH:/usr/local/texlive/2017basic/bin/x86_64-darwin/       # LaTeX
 
