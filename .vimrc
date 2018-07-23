@@ -139,6 +139,8 @@ set tm=500
 "     autocmd GUIEnter * set vb t_vb=
 " endif
 
+" Put a margin marker at column 80
+set colorcolumn=80
 
 " Add a bit extra margin to the left
 set foldcolumn=1
