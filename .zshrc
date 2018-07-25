@@ -1,4 +1,5 @@
-# Used to determine when to include work-specific content
+# Setup
+## Determine when to include work-specific content
 get_computer_name() {
     if [[ $(hostname) = *.amazon.com ]] ; then
         echo work
@@ -8,12 +9,9 @@ get_computer_name() {
 }
 
 # Aliases
-
-## Commonly used programs
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
 
-# Environment Variables
-
+# Environment variables
 ## Path variables
 export PATH=$PATH:$HOME/bin
 
@@ -23,7 +21,6 @@ export PROMPT="%{$fg[cyan]%}%~
 
 if [[ $(get_computer_name) = work ]] ; then
     # Aliases
-
     ## Commonly used programs
     alias rip='ripcli rip'
     alias riph='ripcli help'
@@ -59,7 +56,6 @@ if [[ $(get_computer_name) = work ]] ; then
     fi
 
     # Environment Variables
-
     ## Import other zshrc files
     source /apollo/env/WildcardOpsTools/dotfiles/zshrc
     source /apollo/env/envImprovement/var/zshrc
