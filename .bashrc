@@ -12,6 +12,14 @@ if [[ ! -L $HOME/.gitconfig ]] ; then
     ln -s $HOME/var/rcfiles/gitconfigs/$(get_computer_name) $HOME/.gitconfig
 fi
 
+# Bin simlink
+if [[ ! -a $HOME/bin ]] ; then
+    ln -s $HOME/bar/bin $HOME/bin
+elif [[ ! -L $HOME/bin ]] ; then
+    mv $HOME/bin $HOME/bin-backup
+    ln -s $HOME/var/bin $HOME/bin
+fi
+
 # Aliases
 
 if [[ $(get_computer_name) = work ]] ; then
