@@ -67,6 +67,10 @@ alias n='note'
 alias meld='open -a Meld'
 
 # Path variables and initialization scripts (can be timely)
+## Needs to be above python calls, also used for:
+##      - MIDWAY PATH: Path changed for ssh
+export PATH=$PATH:/usr/local/bin
+
 ## Python init for pyenv
 eval "$(pyenv init -)"
 
@@ -126,7 +130,6 @@ if [[ $(get_computer_name) = work ]] ; then
     }
 
     ## Midway path additions
-    export PATH=$PATH:/usr/local/bin        # MIDWAY PATH: Path changed for ssh
     export SSH_AUTH_SOCK=$MSSH_AUTH_SOCK    # MIDWAY SSH-AGENT: set as default
     export PATH=$PATH:$HOME/.toolbox/bin    # BuilderTools Toolbox
 fi
