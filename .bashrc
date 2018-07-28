@@ -61,6 +61,7 @@ alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
 alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
 alias flag="grep -Ihori ';[+-]\?\w\+;' ./"
+alias flagh="grep -Ihori ';[+-]\?\w\+;' $HOME/var | histogram"
 alias journal='vim $HOME/var/journal/$(date +%Y/%m%d.md)'
 alias journalcat='cat $HOME/var/journal/$(date +%Y/%m%d.md)'
 alias journalgo='cd $HOME/var/journal/$(date +%Y)'
