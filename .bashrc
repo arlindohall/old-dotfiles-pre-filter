@@ -34,6 +34,7 @@ get_main_git_branch() {
 export -f get_main_git_branch
 
 ## Make a pandoc preview
+alias pandoc-all='for f in $(ls *.md) ; do pandoc $f -o $(basename $f .md).html; done'
 alias preview='open -a Preview'
 pdfview() {
   if [ ! -z "$1" ]
