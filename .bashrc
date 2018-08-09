@@ -60,6 +60,7 @@ alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(g
 ## Aliases for common commands
 alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
+alias julia='/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia'
 alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
 alias flag="grep -Ihori ';[+-]\?\w\+;' ./"
 alias flagh="grep -Ihori ';[+-]\?\w\+;' $HOME/var | histogram"
