@@ -31,6 +31,25 @@ get_main_git_branch() {
   fi
 }
 
+## Check git repos in a directory
+check-git-repos() {
+    format_string="%-30s%-20s%-20s\n"
+    printf $format_string Directory Branch DiffFromMainline
+    for dir in $(ls -1F | grep \/) ; do
+        cd $dir
+        if [[ $(git status 2>/dev/null) ]] ; then :
+        else
+            cd ..
+            continue
+        fi
+        printf $format_string $dir \
+            $(git rev-parse --symbolic-full-name --abbrev-ref HEAD) \
+            $(if [[ $(git diff $(get_main_git_branch) -- .) ]] ; then echo true ; else echo false ; fi)
+        cd ..
+    done
+}
+
+
 export -f get_main_git_branch
 
 ## Make a pandoc preview
