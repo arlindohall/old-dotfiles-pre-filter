@@ -158,4 +158,21 @@ if [[ $(get_computer_name) = work ]] ; then
     ## Midway path additions
     export SSH_AUTH_SOCK=$MSSH_AUTH_SOCK    # MIDWAY SSH-AGENT: set as default
     export PATH=$PATH:$HOME/.toolbox/bin    # BuilderTools Toolbox
+
+    ## SSH Aliases for Astra
+    alias prod-pdx-up='ssh -fNTM prod-gdp-pdx'
+    alias prod-pdx-status='ssh -TO check prod-gdp-pdx'
+    alias prod-pdx-down='ssh -TO exit prod-gdp-pdx'
+    alias prod-pdx1-a-up='ssh -fNTM prod-pdx1-a'
+    alias prod-pdx1-a-status='ssh -TO check prod-pdx1-a'
+    alias prod-pdx1-a-down='ssh -TO exit prod-pdx1-a'
+    alias prod-pdx1-b-up='ssh -fNTM prod-pdx1-b'
+    alias prod-pdx1-b-status='ssh -TO check prod-pdx1-b'
+    alias prod-pdx1-b-down='ssh -TO exit prod-pdx1-b'
+    alias prod-cmh51-a-up='ssh -fNTM prod-cmh51-a'
+    alias prod-cmh51-a-status='ssh -TO check prod-cmh51-a'
+    alias prod-cmh51-a-down='ssh -TO exit prod-cmh51-a'
+    alias prod-cmh51-b-up='ssh -fNTM prod-cmh51-b'
+    alias prod-cmh51-b-status='ssh -TO check prod-cmh51-b'
+    alias prod-cmh51-b-down='ssh -TO exit prod-cmh51-b'
 fi
