@@ -175,4 +175,12 @@ if [[ $(get_computer_name) = work ]] ; then
     alias prod-cmh51-b-up='ssh -fNTM prod-cmh51-b'
     alias prod-cmh51-b-status='ssh -TO check prod-cmh51-b'
     alias prod-cmh51-b-down='ssh -TO exit prod-cmh51-b'
+    alias lab-up='ssh -fNTM lab'
+    alias lab-status='ssh -TO check lab'
+    alias lab-down='ssh -TO exit lab'
+
+    # SAM
+    alias samp='brazil-build-tool-exec sam package'
+    alias samd='brazil-build-tool-exec sam deploy'
+    alias samt='brazil-build-tool-exec sam test'
 fi
