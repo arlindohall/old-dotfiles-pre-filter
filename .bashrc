@@ -77,7 +77,6 @@ alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checko
 alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(get_main_git_branch) && git merge dev && git checkout dev'
 
 ## Aliases for common commands
-alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
 alias julia='/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia'
 alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
@@ -91,6 +90,10 @@ alias notecat='cat $HOME/var/notes/$(date +%Y/%m%d.md)'
 alias notego='cd $HOME/var/notes/$(date +%Y)'
 alias n='note'
 alias meld='open -a Meld'
+
+## Java 11
+alias java11='/opt/jdk-11.0.1.jdk/Contents/Home/bin/java'
+alias jshell11='/opt/jdk-11.0.1.jdk/Contents/Home/bin/jshell'
 
 # Path variables and initialization scripts (can be timely)
 ## Needs to be above python calls, also used for:
