@@ -82,12 +82,14 @@ alias julia='/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia'
 alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
 alias flag="grep -Ihori ';[+-]\?\w\+;' ./"
 alias flagh="grep -Ihori ';[+-]\?\w\+;' $HOME/var | histogram"
-alias journal='vim $HOME/var/journal/$(date +%Y/%m%d.md) && pandoc $HOME/var/journal/$(date +%Y/%m%d.md) -o $HOME/var/journal/$(date +%Y/%m%d.md)'
+alias journal='vim $HOME/var/journal/$(date +%Y/%m%d.md) && pandoc $HOME/var/journal/$(date +%Y/%m%d.md) -o $HOME/var/journal/$(date +%Y/%m%d.md) && journalindex'
 alias journalcat='cat $HOME/var/journal/$(date +%Y/%m%d.md)'
 alias journalgo='cd $HOME/var/journal/$(date +%Y)'
-alias note='vim $HOME/var/notes/$(date +%Y/%m%d.md) && pandoc $HOME/var/notes/$(date +%Y/%m%d.md) -o $HOME/var/notes/$(date +%Y/%m%d.md)'
+alias journalindex='cd $HOME/var/journal/ && index && cd -'
+alias note='vim $HOME/var/notes/$(date +%Y/%m%d.md) && pandoc $HOME/var/notes/$(date +%Y/%m%d.md) -o $HOME/var/notes/$(date +%Y/%m%d.md) && noteindex'
 alias notecat='cat $HOME/var/notes/$(date +%Y/%m%d.md)'
 alias notego='cd $HOME/var/notes/$(date +%Y)'
+alias noteindex='cd $HOME/var/notes/ && index && cd -' # Alias from bin folder
 alias n='note'
 alias meld='open -a Meld'
 
