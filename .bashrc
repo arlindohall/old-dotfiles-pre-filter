@@ -87,13 +87,14 @@ alias flagh="grep -Ihori ';[+-]\?\w\+;' $HOME/var | histogram"
 alias todays-date='echo $(date +%Y/%m%d.md)'
 alias todays-journal='echo $HOME/var/journal/$(todays-date)'
 alias todays-note='echo $HOME/var/notes/$(todays-date)'
+alias time-right-now='echo $(date +%H:%M)'
 
-alias journal='vim $(todays-journal) && pandoc $(todays-journal) -o $(todays-journal) && journalindex'
+alias journal='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-journal) && vim $(todays-journal) && pandoc $(todays-journal) -o $(todays-journal) && journal-index'
 alias journalcat='cat $(todays-journal)'
 alias journalgo='cd $HOME/var/journal'
 alias journal-index='journalgo && index && cd -'
 
-alias note='vim $(todays-note) && pandoc $(todays-note) -o $(todays-note) && noteindex'
+alias note='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-note) && vim $(todays-note) && pandoc $(todays-note) -o $(todays-note) && note-index'
 alias notecat='cat $(todays-note)'
 alias notego='cd $HOME/var/notes'
 alias note-index='notego && index && cd -'
