@@ -77,6 +77,7 @@ if [[ $(get_computer_name) = work ]] ; then
     ## Path variables
     export PATH=$PATH:/apollo/env/WildcardOpsTools/bin
     export PATH=$HOME/.toolbox/bin:$PATH
+    export PATH=$PATH:$HOME/jdk-11.0.1/bin/
 
     for f in envImprovement AmazonAwsCli OdinTools; do
         if [[ -d /apollo/env/$f ]]; then
