@@ -58,6 +58,8 @@ if [[ $(get_computer_name) = work ]] ; then
     alias service='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsService'
     alias ams='cd $HOME/workspace/AccountManagementService/src/AWSAutomationAccountManagementService'
     alias rms='cd $HOME/workspace/ResourceManagementService/src/AWSAutomationResourceManagementService'
+    alias ams-ping='curl localhost:8000/deep_ping'
+    alias rms-ping='curl localhost:9000/deep_ping'
 
     ## Alias to kill running brazil servers (kills all jobs)
     alias brazil-kill="kill -9 \$(brazil-server-name-running)"

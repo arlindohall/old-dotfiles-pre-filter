@@ -71,6 +71,20 @@ pdfview() {
   fi
 }
 
+diary-synthesize() {
+  diary="$(todays-year)"
+
+  echo "" > $diary
+  for f in $(ls -1 *.md) ; do
+    cat $f >> $diary
+    echo "" >> $diary
+    echo "" >> $diary
+  done
+
+  pandoc $diary -o "$diary.md"
+  rm $diary
+}
+
 # Aliases
 ## Aliases for running common git commands
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
@@ -84,6 +98,7 @@ alias flagh="grep -Ihori ';[+-]\?\w\+;' $HOME/var | histogram"
 
 ## Aliases for notes and journals
 alias todays-date='echo $(date +%Y/%m%d.md)'
+alias todays-year='echo $(date +%Y)'
 alias todays-journal='echo $HOME/var/journal/$(todays-date)'
 alias todays-note='echo $HOME/var/notes/$(todays-date)'
 alias time-right-now='echo $(date +%H:%M)'
@@ -92,11 +107,13 @@ alias journal='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-journal) && vim
 alias journalcat='cat $(todays-journal)'
 alias journalgo='cd $HOME/var/journal'
 alias journal-index='journalgo && index && cd -'
+alias journal-synthesize='cd $HOME/var/journal/$(todays-year) && diary-synthesize && cd -'
 
 alias note='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-note) && vim $(todays-note) && pandoc $(todays-note) -o $(todays-note) && note-index'
 alias notecat='cat $(todays-note)'
 alias notego='cd $HOME/var/notes'
 alias note-index='notego && index && cd -'
+alias note-synthesize='cd $HOME/var/note/$(todays-year) && diary-synthesize && cd -'
 
 ## Java 11
 alias java='/opt/jdk-11.0.1.jdk/Contents/Home/bin/java'
@@ -145,6 +162,16 @@ if [[ $(get_computer_name) = work ]] ; then
     alias service='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsService'
     alias ams='cd $HOME/ws/AccountManagementService/src/AWSAutomationAccountManagementService'
     alias rms='cd $HOME/ws/ResourceManagementService/src/AWSAutomationResourceManagementService'
+
+    ## Shortcuts
+    alias bb=brazil-build
+    alias bba='brazil-build apollo-pkg'
+    alias bre='brazil-runtime-exec'
+    alias bws='brazil ws'
+    alias bwsuse='bws use --gitMode -p'
+    alias bwscreate='bws create -n'
+    alias bball='brc --allPackages'
+    alias bbra='bbr apollo-pkg'
 
     # Functions
     ## Brazil Recursive Command
