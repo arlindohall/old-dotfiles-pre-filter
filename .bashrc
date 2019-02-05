@@ -148,13 +148,18 @@ export PS1="\[\e[36m\]\w\[\e[m\]
 \[\e[32m\]\u\[\e[m\]🐯 $ "
 
 if [[ $(get_computer_name) = work ]] ; then
+    # Start ninja-dev-sync if it's not started
+    test -n "$(tmux ls 2>/dev/null | grep ninja)" \
+        || (echo Opening ninja-dev-sync tmux session because none exists... \
+        && tmux new -d -s ninja ninja-dev-sync)
+
     # Aliases
     ## Aliases for connecting/tunneling to dev desktop
     alias cdd-tunnel='ssh -N -L 13390:localhost:3389 millerah.aka.corp.amazon.com -o ProxyCommand=none'
     alias odin-tunnel='ssh -L 2009:localhost:2009 millerah.aka.corp.amazon.com -f -N'
     alias dvd='ssh millerah.aka.corp.amazon.com'
     alias mdvd='mssh -A millerah.aka.corp.amazon.com'
-    alias timber='ssh epim2-tests-timberfs-iad-1b-b4b79026.us-east-1.amazon.com'
+    alias timber='ssh epim2-tests-timberfs-iad-1b-4eed9395.us-east-1.amazon.com'
     alias sshf='ssh -F /dev/null'
 
     ## Aliases for folders
