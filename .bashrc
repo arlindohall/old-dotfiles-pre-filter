@@ -115,9 +115,8 @@ alias notego='cd $HOME/var/notes'
 alias note-index='notego && index && cd -'
 alias note-synthesize='cd $HOME/var/note/$(todays-year) && diary-synthesize && cd -'
 
-## Java 11
-alias java='/opt/jdk-11.0.1.jdk/Contents/Home/bin/java'
-alias jshell='/opt/jdk-11.0.1.jdk/Contents/Home/bin/jshell'
+## Java 11 over /usr/bin/java
+export PATH=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/:$PATH
 
 # Path variables and initialization scripts (can be timely)
 ## Needs to be above python calls, also used for:
