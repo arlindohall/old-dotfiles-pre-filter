@@ -45,6 +45,8 @@ if [[ $(get_computer_name) = work ]] ; then
 
     ## Shortcuts
     alias bb=brazil-build
+    alias brc=brazil-recursive-cmd
+    alias bbr='brc brazil-build'
     alias bba='brazil-build apollo-pkg'
     alias bre='brazil-runtime-exec'
     alias bws='brazil ws'
@@ -101,19 +103,6 @@ if [[ $(get_computer_name) = work ]] ; then
     ## Miscelaneous env varibales
     export AUTO_TITLE_SCREENS="NO"
     export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
-
-    ## Brazil Recursive Command
-    unalias bbr
-    bbr() {
-        brc "echo \"@@@ Building \$(pwd) @@@\" && brazil-build release"
-    }
-    brc() {
-        echo "########## Running brazil command recursively ##########"
-        brazil-recursive-cmd "$@"
-    }
-
-    export -f bbr
-    export -f brc
 fi
 
 ## Tiger prompt

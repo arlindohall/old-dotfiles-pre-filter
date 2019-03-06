@@ -169,6 +169,8 @@ if [[ $(get_computer_name) = work ]] ; then
 
     ## Shortcuts
     alias bb=brazil-build
+    alias brc=brazil-recursive-cmd
+    alias bbr='brc brazil-build'
     alias bba='brazil-build apollo-pkg'
     alias bre='brazil-runtime-exec'
     alias bws='brazil ws'
@@ -176,19 +178,6 @@ if [[ $(get_computer_name) = work ]] ; then
     alias bwscreate='bws create -n'
     alias bball='brc --allPackages'
     alias bbra='bbr apollo-pkg'
-
-    # Functions
-    ## Brazil Recursive Command
-    bbr() {
-        brc "echo \"@@@ Building \$(pwd) @@@\" && brazil-build release"
-    }
-    brc() {
-        echo "########## Running brazil command recursively ##########"
-        brazil-recursive-cmd "$@"
-    }
-
-    export -f bbr
-    export -f brc
 
     ## Mwinit update command
     mwinit-update() {
