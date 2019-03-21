@@ -35,8 +35,8 @@ export PATH=$PATH:$HOME/bin
 if [[ $(get_computer_name) = work ]] ; then
     # Aliases
     ## Commonly used programs
-    alias rip='ripcli rip'
-    alias riph='ripcli help'
+    alias rip='/apollo/env/RIPCLI2/bin/ripcli rip'
+    alias riph='/apollo/env/RIPCLI2/bin/ripcli help'
     alias aws='/apollo/env/AmazonAwsCli/bin/aws'
     alias sshf='ssh -F /dev/null'
     alias brazil-octane='/apollo/env/OctaneBrazilTools/bin/brazil-octane'
