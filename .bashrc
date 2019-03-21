@@ -154,9 +154,11 @@ export PS1="\[\e[36m\]\w\[\e[m\]
 
 if [[ $(get_computer_name) = work ]] ; then
     # Start ninja-dev-sync if it's not started
-    test -n "$(tmux ls 2>/dev/null | grep ninja)" \
-        || (echo Opening ninja-dev-sync tmux session because none exists... \
-        && tmux new -d -s ninja ninja-dev-sync)
+    ninja() {
+        test -n "$(tmux ls 2>/dev/null | grep ninja)" \
+            || (echo Opening ninja-dev-sync tmux session because none exists... \
+            && tmux new -d -s ninja ninja-dev-sync)
+    }
 
     # Aliases
     ## Aliases for connecting/tunneling to dev desktop
