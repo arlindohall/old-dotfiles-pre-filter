@@ -85,6 +85,12 @@ diary-synthesize() {
   rm $diary
 }
 
+what_are_my_shell_shortcuts() {
+  echo "Python:  import code; code.interact(local=dict(globals(), **locals()))"
+  echo "Ruby:    require 'pry'; binding.pry"
+  echo "RIP:     "rip -r iad -s ers -a custom_properties "|" ruby -pe "'"'$_.gsub!("=>", ":")'"'" "|" jq
+}
+
 # Aliases
 ## Aliases for running common git commands
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
