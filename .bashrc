@@ -172,6 +172,7 @@ if [[ $(get_computer_name) = work ]] ; then
     ## Aliases for folders
     alias go='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsServiceTests'
     alias service='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsService'
+    alias canary='cd $HOME/ws/EpimCanary/src/EpimCanaryTest'
     alias ams='cd $HOME/ws/AccountManagementService/src/AWSAutomationAccountManagementService'
     alias rms='cd $HOME/ws/ResourceManagementService/src/AWSAutomationResourceManagementService'
 

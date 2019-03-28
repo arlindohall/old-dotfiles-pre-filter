@@ -59,6 +59,7 @@ if [[ $(get_computer_name) = work ]] ; then
     ## Aliases for folders
     alias go='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsServiceTests'
     alias service='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsService'
+    alias canary='cd $HOME/workspace/EpimCanary/src/EpimCanaryTest'
     alias ams='cd $HOME/workspace/AccountManagementService/src/AWSAutomationAccountManagementService'
     alias rms='cd $HOME/workspace/ResourceManagementService/src/AWSAutomationResourceManagementService'
     alias ams-ping='curl localhost:8000/deep_ping'
