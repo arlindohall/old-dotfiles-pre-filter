@@ -119,7 +119,8 @@ alias note='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-note) && vim $(tod
 alias notecat='cat $(todays-note)'
 alias notego='cd $HOME/var/notes'
 alias note-index='notego && index && cd -'
-alias note-synthesize='cd $HOME/var/note/$(todays-year) && diary-synthesize && cd -'
+alias note-synthesize='cd $HOME/var/notes/$(todays-year) && diary-synthesize && cd -'
+alias yearcat='for f in $HOME/var/notes/$(todays-year)/*.md ; do cat $f ; echo ; echo ; done'
 
 ## Java 11 over /usr/bin/java
 export PATH=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/:$PATH
