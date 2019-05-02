@@ -189,6 +189,7 @@ if [[ $(get_computer_name) = work ]] ; then
     alias bwscreate='bws create -n'
     alias bball='brc --allPackages'
     alias bbra='bbr apollo-pkg'
+    alias bjs='jshell --class-path "$(brazil-path run.classpath)"'
 
     ## Mwinit update command
     mwinit-update() {
