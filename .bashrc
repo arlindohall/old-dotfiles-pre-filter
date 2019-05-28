@@ -181,6 +181,8 @@ if [[ $(get_computer_name) = work ]] ; then
     alias canary='cd $HOME/ws/EpimCanary/src/EpimCanaryTest'
     alias ams='cd $HOME/ws/AccountManagementService/src/AWSAutomationAccountManagementService'
     alias rms='cd $HOME/ws/ResourceManagementService/src/AWSAutomationResourceManagementService'
+    alias ers='cd $HOME/ws/EpimReportingService/src/EpimReportingService'
+    alias edp='cd $HOME/ws/EpimDataProvider/src/EpimDataProviderService'
 
     ## Shortcuts
     alias bb=brazil-build
