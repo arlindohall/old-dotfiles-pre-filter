@@ -18,8 +18,6 @@ get_main_git_branch() {
   fi
 }
 
-export -f get_main_git_branch
-
 # Aliases
 ## Aliases for running common git commands
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
