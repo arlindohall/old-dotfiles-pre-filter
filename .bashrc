@@ -98,6 +98,7 @@ alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(g
 
 ## Aliases for common commands
 alias lisp='/opt/sbcl-1.1.6-x86-darwin/run-sbcl.sh'
+alias bfg='java -jar /opt/bfg.jar'
 alias julia='/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia'
 alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
 alias flag="grep -Ihori ';[+-]\?\w\+;' ./"
