@@ -101,8 +101,11 @@ alias lisp='/opt/sbcl-1.1.6-x86-darwin/run-sbcl.sh'
 alias bfg='java -jar /opt/bfg.jar'
 alias julia='/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia'
 alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
-alias flag="grep -Ihori ';[+-]\?\w\+;' ./"
-alias flagh="grep -Ihori ';[+-]\?\w\+;' $HOME/var | histogram"
+alias flag="rg -INo ';[+-]?\w+;'"
+alias flagh="flag | histogram"
+alias flagh-var="cd $HOME/var && flagh && cd -"
+alias flagh-note="cd $HOME/var/notes && flagh && cd -"
+alias flagh-journal="cd $HOME/var/journal && flagh && cd -"
 
 ## Aliases for notes and journals
 alias todays-date='echo $(date +%Y/%m%d.md)'
