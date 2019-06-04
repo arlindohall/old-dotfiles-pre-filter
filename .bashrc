@@ -97,6 +97,7 @@ alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checko
 alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(get_main_git_branch) && git merge dev && git checkout dev'
 
 ## Aliases for common commands
+alias lisp='/opt/sbcl-1.1.6-x86-darwin/run-sbcl.sh'
 alias julia='/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia'
 alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
 alias flag="grep -Ihori ';[+-]\?\w\+;' ./"
