@@ -49,7 +49,7 @@
 "echo ">^.^<"
 
 " Ch2
-set relativenumber
+"set relativenumber
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
