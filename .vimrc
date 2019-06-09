@@ -51,6 +51,18 @@
 " Ch2
 "set relativenumber
 
+" Ch 3
+:nnoremap - ddp
+:nnoremap _ ddkkp
+
+" Ch 4
+" Note that this mapping works for the 2nd-last character of a word
+:inoremap <c-u> <esc>viwUea
+:nnoremap <c-u> viwU
+
+" Ch 5
+" converted the above mappings to *noremap*
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
