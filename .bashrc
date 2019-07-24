@@ -170,8 +170,9 @@ if [[ $(get_computer_name) = work ]] ; then
     ## Aliases for connecting/tunneling to dev desktop
     alias cdd-tunnel='ssh -N -L 13390:localhost:3389 millerah.aka.corp.amazon.com -o ProxyCommand=none'
     alias odin-tunnel='ssh -L 2009:localhost:2009 millerah.aka.corp.amazon.com -f -N'
-    alias dvd='ssh millerah.aka.corp.amazon.com'
+    # alias dvd='ssh millerah.aka.corp.amazon.com'
     alias mdvd='mssh -A millerah.aka.corp.amazon.com'
+    alias dvd=mdvd
     alias timber='ssh epim2-tests-timberfs-iad-1b-4eed9395.us-east-1.amazon.com'
     alias sshf='ssh -F /dev/null'
 
