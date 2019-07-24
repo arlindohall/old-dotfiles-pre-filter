@@ -23,9 +23,6 @@ get_main_git_branch() {
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
 alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(get_main_git_branch) && git merge dev && git checkout dev'
 
-## Aliases for common commands
-alias tree='find . -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/" | less'
-
 # Environment variables
 ## Path variables
 export PATH=$PATH:$HOME/bin
@@ -40,6 +37,7 @@ if [[ $(get_computer_name) = work ]] ; then
     alias brazil-octane='/apollo/env/OctaneBrazilTools/bin/brazil-octane'
     alias timber='ssh epim2-tests-timberfs-iad-1b-b4b79026.us-east-1.amazon.com'
     alias eh='expand-hostclass --recurse'
+    alias kmi='kinit -f && mwinit -o'
 
     ## Shortcuts
     alias bb=brazil-build
@@ -83,7 +81,7 @@ if [[ $(get_computer_name) = work ]] ; then
     ## Path variables
     export PATH=$PATH:/apollo/env/WildcardOpsTools/bin
     export PATH=$HOME/.toolbox/bin:$PATH
-    export PATH=$PATH:$HOME/jdk-11.0.1/bin/
+    export PATH=$PATH:$HOME/jdk/bin/
 
     for f in envImprovement AmazonAwsCli OdinTools; do
         if [[ -d /apollo/env/$f ]]; then
