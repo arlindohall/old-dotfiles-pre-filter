@@ -18,14 +18,40 @@ get_main_git_branch() {
   fi
 }
 
+# Simple helper to kill a tmux session because typing the command is hard
+tmux-kill-session() {
+    tmux kill-session -t $1
+}
+
+tmux-new-session() {
+    name=$1; shift
+    cmd=$1
+
+    if test -n "$name"
+    then
+        if test -n "$cmd"
+        then
+            tmux new -d -s $name "$cmd"
+        else
+            tmux new -s $name
+        fi
+    else
+        echo Won\'t start a tmux session without a name...
+    fi
+}
+
+tmux-list-sessions() {
+    echo "$(tmux ls 2>/dev/null)"
+}
 # Aliases
 ## Aliases for running common git commands
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
 alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(get_main_git_branch) && git merge dev && git checkout dev'
 
-# Environment variables
-## Path variables
-export PATH=$PATH:$HOME/bin
+## Aliases for tmux commands
+alias tks='tmux-kill-session'
+alias tns='tmux-new-session'
+alias tls='tmux-list-sessions'
 
 if [[ $(get_computer_name) = work ]] ; then
     # Aliases
