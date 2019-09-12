@@ -75,6 +75,27 @@ tmux-list-sessions() {
     echo "$(tmux ls 2>/dev/null)"
 }
 
+make-password-file() {
+    read -s kerb -p "Enter your Kerberos password..."
+    read -s mid -p "Enter your Midway password..."
+    echo "$kerb $mid" | openssl enc -e -aes256 -pass pass:"$(head -n 2 .ssh/id.personal | tail -n 1)" -out .kmi
+}
+
+get-password() {
+    case $1 in
+        kerb)
+        echo $(get-passwords) | cut -f 1 -d ' '
+        ;;
+        mid)
+        echo $(get-passwords) | cut -f 2 -d ' '
+        ;;
+    esac
+}
+
+get-passwords() {
+    openssl enc -d -aes256 -pass pass:"$(head -n 2 .ssh/id.personal | tail -n 1)" -in .kmi
+}
+
 
 ## Make a pandoc preview
 alias pandoc-all='for f in $(ls *.md) ; do pandoc $f -o $(basename $f .md).html; done'
@@ -234,7 +255,8 @@ if [[ $(get_computer_name) = work ]] ; then
     alias dvd=mdvd
     alias timber='ssh epim2-tests-timberfs-iad-1b-4eed9395.us-east-1.amazon.com'
     alias sshf='ssh -F /dev/null'
-    alias kmi='kinit -f && mwinit -o'
+    alias kerb='echo $(get-password kerb) | kinit -f '
+    alias mid='echo $(get-password mid) | mwinit'
 
     ## Aliases for folders
     alias go='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsServiceTests'
