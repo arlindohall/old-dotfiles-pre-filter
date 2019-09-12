@@ -43,6 +43,28 @@ tmux-new-session() {
 tmux-list-sessions() {
     echo "$(tmux ls 2>/dev/null)"
 }
+
+make-password-file() {
+    read -s kerb -p "Enter your Kerberos password..."
+    read -s mid -p "Enter your Midway password..."
+    echo "$kerb $mid" | openssl enc -e -aes256 -pass pass:"$(head -n 2 .ssh/id.personal | tail -n 1)" -out .kmi
+}
+
+get-password() {
+    case $1 in
+        kerb)
+        echo $(get-passwords) | cut -f 1 -d ' '
+        ;;
+        mid)
+        echo $(get-passwords) | cut -f 2 -d ' '
+        ;;
+    esac
+}
+
+get-passwords() {
+    openssl enc -d -aes256 -pass pass:"$(head -n 2 .ssh/id.personal | tail -n 1)" -in .kmi
+}
+
 # Aliases
 ## Aliases for running common git commands
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
@@ -63,7 +85,8 @@ if [[ $(get_computer_name) = work ]] ; then
     alias brazil-octane='/apollo/env/OctaneBrazilTools/bin/brazil-octane'
     alias timber='ssh epim2-tests-timberfs-iad-1b-b4b79026.us-east-1.amazon.com'
     alias eh='expand-hostclass --recurse'
-    alias kmi='kinit -f && mwinit -o'
+    alias kerb='echo $(get-password kerb) | kinit -f '
+    alias mid='echo $(get-password mid) | mwinit'
 
     ## Shortcuts
     alias bb=brazil-build
