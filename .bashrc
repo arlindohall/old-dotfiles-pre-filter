@@ -49,8 +49,32 @@ check-git-repos() {
     done
 }
 
+# Simple helper to kill a tmux session because typing the command is hard
+tmux-kill-session() {
+    tmux kill-session -t $1
+}
 
-export -f get_main_git_branch
+tmux-new-session() {
+    name=$1; shift
+    cmd=$1
+
+    if test -n "$name"
+    then
+        if test -n "$cmd"
+        then
+            tmux new -d -s $name "$cmd"
+        else
+            tmux new -s $name
+        fi
+    else
+        echo Won\'t start a tmux session without a name...
+    fi
+}
+
+tmux-list-sessions() {
+    echo "$(tmux ls 2>/dev/null)"
+}
+
 
 ## Make a pandoc preview
 alias pandoc-all='for f in $(ls *.md) ; do pandoc $f -o $(basename $f .md).html; done'
@@ -96,6 +120,11 @@ what_are_my_shell_shortcuts() {
 alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
 alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(get_main_git_branch) && git merge dev && git checkout dev'
 
+## Aliases for tmux commands
+alias tks='tmux-kill-session'
+alias tns='tmux-new-session'
+alias tls='tmux-list-sessions'
+
 ## Aliases for common commands
 alias lisp='/opt/sbcl-1.1.6-x86-darwin/run-sbcl.sh'
 alias bfg='java -jar /opt/bfg.jar'
@@ -120,7 +149,7 @@ alias journalgo='cd $HOME/var/journal'
 alias journal-index='journalgo && index && cd -'
 alias journal-synthesize='cd $HOME/var/journal/$(todays-year) && diary-synthesize && cd -'
 
-alias note='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-note) && vim $(todays-note) && pandoc $(todays-note) -o $(todays-note) && note-index'
+alias note='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-note) && vim $(todays-note) && pandoc $(todays-note) -o $(todays-note)'
 alias notecat='cat $(todays-note)'
 alias notego='cd $HOME/var/notes'
 alias note-index='notego && index && cd -'
@@ -161,16 +190,46 @@ export PS1="\[\e[36m\]\w\[\e[m\]
 if [[ $(get_computer_name) = work ]] ; then
     # Start ninja-dev-sync if it's not started
     ninja() {
-        test -n "$(tmux ls 2>/dev/null | grep ninja)" \
-            || (echo Opening ninja-dev-sync tmux session because none exists... \
-            && tmux new -d -s ninja ninja-dev-sync)
+        if (test -n "$(tmux-list-sessions | grep ninja)")
+        then
+            echo Killing exising ninja-dev-sync session and starting a new one...
+            tmux-kill-session ninja
+        else
+            echo Opening ninja-dev-sync tmux session because none exists...
+        fi
+        tmux-new-session ninja ninja-dev-sync
+    }
+    tunnel-webpack() {
+        tunnel webpack-tunnel 8080 8080
+    }
+    tunnel-cdd() {
+        tunnel cdd-tunnel 13390 3389 -o ProxyCommand=none
+    }
+    tunnel-odin() {
+        tunnel odin-tunnel 2009 2009
+    }
+
+    tunnel() {
+        name=$1; shift
+        localPort=$1; shift
+        destPort=$1; shift
+        opts=$@
+
+        cmd="ssh -N -L $localPort:localhost:$destPort millerah.aka.corp.amazon.com $opts"
+
+        if test -n "$(tmux-list-sessions | grep $name)"
+        then
+            echo Killing existing $name session and restarting it...
+            tmux-kill-session $name
+        else
+            echo Starting a new $name session because none exists...
+        fi
+
+        echo $cmd
+        tmux-new-session $name "$cmd"
     }
 
     # Aliases
-    ## Aliases for connecting/tunneling to dev desktop
-    alias cdd-tunnel='ssh -N -L 13390:localhost:3389 millerah.aka.corp.amazon.com -o ProxyCommand=none'
-    alias odin-tunnel='ssh -L 2009:localhost:2009 millerah.aka.corp.amazon.com -f -N'
-    # alias dvd='ssh millerah.aka.corp.amazon.com'
     alias mdvd='mssh -A millerah.aka.corp.amazon.com'
     alias dvd=mdvd
     alias timber='ssh epim2-tests-timberfs-iad-1b-4eed9395.us-east-1.amazon.com'
@@ -210,28 +269,6 @@ if [[ $(get_computer_name) = work ]] ; then
     export SSH_AUTH_SOCK=$MSSH_AUTH_SOCK    # MIDWAY SSH-AGENT: set as default
     export PATH=$PATH:$HOME/.toolbox/bin    # BuilderTools Toolbox
 
-    ## SSH Aliases for Astra
-    alias prod-pdx-up='ssh -fNTM prod-gdp-pdx'
-    alias prod-pdx-status='ssh -TO check prod-gdp-pdx'
-    alias prod-pdx-down='ssh -TO exit prod-gdp-pdx'
-    alias prod-pdx1-a-up='ssh -fNTM prod-pdx1-a'
-    alias prod-pdx1-a-status='ssh -TO check prod-pdx1-a'
-    alias prod-pdx1-a-down='ssh -TO exit prod-pdx1-a'
-    alias prod-pdx1-b-up='ssh -fNTM prod-pdx1-b'
-    alias prod-pdx1-b-status='ssh -TO check prod-pdx1-b'
-    alias prod-pdx1-b-down='ssh -TO exit prod-pdx1-b'
-    alias prod-cmh51-a-up='ssh -fNTM prod-cmh51-a'
-    alias prod-cmh51-a-status='ssh -TO check prod-cmh51-a'
-    alias prod-cmh51-a-down='ssh -TO exit prod-cmh51-a'
-    alias prod-cmh51-b-up='ssh -fNTM prod-cmh51-b'
-    alias prod-cmh51-b-status='ssh -TO check prod-cmh51-b'
-    alias prod-cmh51-b-down='ssh -TO exit prod-cmh51-b'
-    alias lab-up='ssh -fNTM lab'
-    alias lab-status='ssh -TO check lab'
-    alias lab-down='ssh -TO exit lab'
-
     # SAM
-    alias samp='brazil-build-tool-exec sam package'
-    alias samd='brazil-build-tool-exec sam deploy'
-    alias samt='brazil-build-tool-exec sam test'
+    alias sam='brazil-build-tool-exec sam'
 fi
