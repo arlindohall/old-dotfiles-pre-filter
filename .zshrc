@@ -51,6 +51,7 @@ if [[ $(get_computer_name) = work ]] ; then
     alias bwscreate='bws create -n'
     alias bball='brc --allPackages'
     alias bbra='bbr apollo-pkg'
+    alias bjs='jshell --class-path "$(brazil-path run.classpath)"'
 
     ## Aliases for folders
     alias go='cd $HOME/workspace/EpimAwsServiceTests/src/EpimAwsServiceTests'
@@ -62,6 +63,7 @@ if [[ $(get_computer_name) = work ]] ; then
     alias rms-ping='curl localhost:9000/deep_ping'
     alias ers='cd $HOME/ws/EpimReportingService/src/EpimReportingService'
     alias edp='cd $HOME/ws/EpimDataProvider/src/EpimDataProviderService'
+    alias sam='brazil-build-tool-exec sam'
 
     ## Alias to kill running brazil servers (kills all jobs)
     alias brazil-kill="kill -9 \$(brazil-server-name-running)"
@@ -79,9 +81,11 @@ if [[ $(get_computer_name) = work ]] ; then
     source /apollo/env/envImprovement/var/zshrc
 
     ## Path variables
+    export PATH=$PATH:$HOME/bin
     export PATH=$PATH:/apollo/env/WildcardOpsTools/bin
     export PATH=$HOME/.toolbox/bin:$PATH
     export PATH=$PATH:$HOME/jdk/bin/
+    export PATH=$PATH:$HOME/node/bin
 
     for f in envImprovement AmazonAwsCli OdinTools; do
         if [[ -d /apollo/env/$f ]]; then
