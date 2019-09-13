@@ -76,26 +76,36 @@ tmux-list-sessions() {
 }
 
 password-make-file() {
-    read -s kerb -p "Enter your Kerberos password..."
-    read -s mid -p "Enter your Midway password..."
-    echo "$kerb $mid" | openssl enc -e -aes256 -pass pass:"$(head -n 2 .ssh/id.personal | tail -n 1)" -out .kmi
+    printf "Enter your Kerberos password... "
+    read -s kerb
+    printf "Enter your Midway password... "
+    read -s mid -p
+    echo "$kerb $mid" | openssl enc -e -aes256 -out .kmi
 }
 
 password-get() {
-    case $1 in
+    cmd=$1
+    passw=$2
+    case $cmd in
         kerb)
-        echo $(password-get-all) | cut -f 1 -d ' '
+        echo $(password-get-all $passw) | cut -f 1 -d ' '
         ;;
         mid)
-        echo $(password-get-all) | cut -f 2 -d ' '
+        echo $(password-get-all $passw) | cut -f 2 -d ' '
         ;;
     esac
 }
 
 password-get-all() {
-    openssl enc -d -aes256 -pass pass:"$(head -n 2 .ssh/id.personal | tail -n 1)" -in .kmi
+    openssl enc -d -aes256 -pass pass:"$1" -in .kmi
 }
 
+kmi() {
+    printf "Enter your password... "
+    read -s pass
+    echo $(password-get kerb $pass) | kinit -f
+    echo $(password-get mid  $pass) | mwinit
+}
 
 ## Make a pandoc preview
 alias pandoc-all='for f in $(ls *.md) ; do pandoc $f -o $(basename $f .md).html; done'
@@ -255,8 +265,6 @@ if [[ $(get_computer_name) = work ]] ; then
     alias dvd=mdvd
     alias timber='ssh epim2-tests-timberfs-iad-1b-4eed9395.us-east-1.amazon.com'
     alias sshf='ssh -F /dev/null'
-    alias kerb='echo $(password-get kerb) | kinit -f '
-    alias mid='echo $(password-get mid) | mwinit'
 
     ## Aliases for folders
     alias go='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsServiceTests'
