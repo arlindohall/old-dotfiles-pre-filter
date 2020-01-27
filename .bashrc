@@ -23,7 +23,7 @@ fi
 
 # Functions
 ## Determine git branch
-get_main_git_branch() {
+git_get_main_branch() {
   if [[ $(git branch) = *"mainline"* ]] ; then
     echo mainline
   else
@@ -31,8 +31,27 @@ get_main_git_branch() {
   fi
 }
 
+git_current_branch() {
+  git branch | rg '\*' | rg -o '\w+'
+}
+
+## Functions for running common git commands
+pull-rebase() {
+  main=$(git_get_main_branch)
+  git fetch && git rebase origin/$main
+}
+
+push-merge() {
+  current=$(git_current_branch)
+  main=$(git_get_main_branch)
+  git push origin $current:$main \
+    && git checkout $main \
+    && git merge origin/$main \
+    && git checkout $current
+}
+
 ## Check git repos in a directory
-check-git-repos() {
+git_check_repos() {
     format_string="%-30s%-20s%-20s\n"
     printf $format_string Directory Branch DiffFromMainline
     for dir in $(ls -1F | grep \/) ; do
@@ -44,7 +63,7 @@ check-git-repos() {
         fi
         printf $format_string $dir \
             $(git rev-parse --symbolic-full-name --abbrev-ref HEAD) \
-            $(if [[ $(git diff $(get_main_git_branch) -- .) ]] ; then echo true ; else echo false ; fi)
+            $(if [[ $(git diff $(git_get_main_branch) -- .) ]] ; then echo true ; else echo false ; fi)
         cd ..
     done
 }
@@ -147,9 +166,6 @@ what_are_my_shell_shortcuts() {
 }
 
 # Aliases
-## Aliases for running common git commands
-alias pull-rebase='git checkout $(get_main_git_branch) && git pull && git checkout dev && git rebase $(get_main_git_branch)'
-alias push-merge='git push origin dev:$(get_main_git_branch) && git checkout $(get_main_git_branch) && git merge dev && git checkout dev'
 
 ## Aliases for tmux commands
 alias tks='tmux-kill-session'
@@ -157,10 +173,10 @@ alias tns='tmux-new-session'
 alias tls='tmux-list-sessions'
 
 ## Aliases for common commands
-alias lisp='/opt/sbcl-1.1.6-x86-darwin/run-sbcl.sh'
+alias lisp='sbcl'
 alias bfg='java -jar /opt/bfg.jar'
 alias julia='/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia'
-alias grip='$HOME/.pyenv/versions/3.5.2/bin/grip'
+alias grip='$HOME/.pyenv/versions/3.7.5/bin/grip'
 alias flag="rg -INo ';[+-]?\w+;'"
 alias flagh="flag | histogram"
 alias flagh-var="cd $HOME/var && flagh && cd -"
@@ -180,7 +196,7 @@ alias journalgo='cd $HOME/var/journal'
 alias journal-index='journalgo && index && cd -'
 alias journal-synthesize='cd $HOME/var/journal/$(todays-year) && diary-synthesize && cd -'
 
-alias note='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-note) && vim $(todays-note) && pandoc $(todays-note) -o $(todays-note)'
+alias note='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-note) && vim $(todays-note) && pandoc $(todays-note) -o $(todays-note) && note-index'
 alias notecat='cat $(todays-note)'
 alias notego='cd $HOME/var/notes'
 alias note-index='notego && index && cd -'
@@ -267,8 +283,8 @@ if [[ $(get_computer_name) = work ]] ; then
     alias sshf='ssh -F /dev/null'
 
     ## Aliases for folders
-    alias go='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsServiceTests'
-    alias service='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsService'
+    alias go='cd $HOME/ws/RbqWebsite/src/RbqStaticWebsiteAssets'
+    alias reticle='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsServiceTests'
     alias canary='cd $HOME/ws/EpimCanary/src/EpimCanaryTest'
     alias ams='cd $HOME/ws/AccountManagementService/src/AWSAutomationAccountManagementService'
     alias rms='cd $HOME/ws/ResourceManagementService/src/AWSAutomationResourceManagementService'
@@ -301,4 +317,7 @@ if [[ $(get_computer_name) = work ]] ; then
 
     # SAM
     alias sam='brazil-build-tool-exec sam'
+
+    # Set the PEM according to https://w.amazon.com/bin/view/Midway/Operations/AwsCliIsengardMac/
+    export REQUESTS_CA_BUNDLE=$HOME/internal_and_external_cacerts.pem
 fi
