@@ -248,8 +248,10 @@ if [[ ! -L $(which rvm) ]] ; then
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 fi
 
-## Git autocomplete
-fpath=(~/.zsh $fpath)
+## Zsh autocomplete
+source $HOME/.git-completion.bash 2>/dev/null   # I know it's deprecated
+# Bash one works good enough
+# source $HOME/.git-completion.zsh
 
 ## Avoid /bin/false errors
 export SHELL='/bin/bash'
