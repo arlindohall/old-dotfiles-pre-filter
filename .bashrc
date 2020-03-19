@@ -23,7 +23,7 @@ fi
 
 # Functions
 ## Determine git branch
-git_get_main_branch() {
+git_main_branch() {
   if [[ $(git branch) = *"mainline"* ]] ; then
     echo mainline
   else
@@ -32,18 +32,23 @@ git_get_main_branch() {
 }
 
 git_current_branch() {
-  git branch | rg '\*' | rg -o '\w+'
+  git branch | rg '\*' | rg -o '\S+' | rg -v '\*'
 }
 
 ## Functions for running common git commands
 pull-rebase() {
-  main=$(git_get_main_branch)
-  git fetch && git rebase origin/$main
+  main=$(git_main_branch)
+  current=$(git_current_branch)
+  git fetch
+  git rebase origin/"$current"
+  git checkout "$main"
+  git rebase origin/"$main"
+  git checkout "$current"
 }
 
 push-merge() {
   current=$(git_current_branch)
-  main=$(git_get_main_branch)
+  main=$(git_main_branch)
   git push origin $current:$main \
     && git checkout $main \
     && git merge origin/$main \
@@ -63,7 +68,7 @@ git_check_repos() {
         fi
         printf $format_string $dir \
             $(git rev-parse --symbolic-full-name --abbrev-ref HEAD) \
-            $(if [[ $(git diff $(git_get_main_branch) -- .) ]] ; then echo true ; else echo false ; fi)
+            $(if [[ $(git diff $(git_main_branch) -- .) ]] ; then echo true ; else echo false ; fi)
         cd ..
     done
 }
@@ -172,8 +177,13 @@ alias tks='tmux-kill-session'
 alias tns='tmux-new-session'
 alias tls='tmux-list-sessions'
 
+## Aliases for git commands
+alias gg='git goal'
+
 ## Aliases for common commands
+alias grep='rg'
 alias lisp='sbcl'
+alias gcc='gcc-9'
 alias bfg='java -jar /opt/bfg.jar'
 alias julia='/Applications/Julia-1.0.app/Contents/Resources/julia/bin/julia'
 alias grip='$HOME/.pyenv/versions/3.7.5/bin/grip'
@@ -182,6 +192,7 @@ alias flagh="flag | histogram"
 alias flagh-var="cd $HOME/var && flagh && cd -"
 alias flagh-note="cd $HOME/var/notes && flagh && cd -"
 alias flagh-journal="cd $HOME/var/journal && flagh && cd -"
+alias jk='tput reset'
 
 ## Aliases for notes and journals
 alias todays-date='echo $(date +%Y/%m%d.md)'
@@ -289,7 +300,8 @@ if [[ $(get_computer_name) = work ]] ; then
     alias ams='cd $HOME/ws/AccountManagementService/src/AWSAutomationAccountManagementService'
     alias rms='cd $HOME/ws/ResourceManagementService/src/AWSAutomationResourceManagementService'
     alias ers='cd $HOME/ws/EpimReportingService/src/EpimReportingService'
-    alias edp='cd $HOME/ws/EpimDataProvider/src/EpimDataProviderService'
+    alias edp='cd $HOME/ws/EpimDataProviderLambda/src/EpimDataProviderLambda'
+    alias ecma='cd $HOME/ws/EpimCarnavalMonitorAuditLambda/src/EpimCarnavalMonitorAuditLambda'
 
     ## Shortcuts
     alias bb=brazil-build
