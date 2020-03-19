@@ -65,22 +65,22 @@ if [[ $(is_devdesktop) = no ]] ; then
     }
 
     ## Check git repos in a directory
-    git_check_repos() {
-        format_string="%-30s%-20s%-20s\n"
-        printf $format_string Directory Branch DiffFromMainline
-        for dir in $(ls -1F | grep \/) ; do
-            cd $dir
-            if [[ $(git status 2>/dev/null) ]] ; then :
-            else
-                cd ..
-                continue
-            fi
-            printf $format_string $dir \
-                $(git rev-parse --symbolic-full-name --abbrev-ref HEAD) \
-                $(if [[ $(git diff $(git_main_branch) -- .) ]] ; then echo true ; else echo false ; fi)
-            cd ..
-        done
-    }
+    # git_check_repos() {
+    #     format_string="%-30s%-20s%-20s\n"
+    #     printf $format_string Directory Branch DiffFromMainline
+    #     for dir in $(ls -1F | grep \/) ; do
+    #         cd $dir
+    #         if [[ $(git status 2>/dev/null) ]] ; then
+    #         else
+    #             cd ..
+    #             continue
+    #         fi
+    #         printf $format_string $dir \
+    #             $(git rev-parse --symbolic-full-name --abbrev-ref HEAD) \
+    #             $(if [[ $(git diff $(git_main_branch) -- .) ]] ; then echo true ; else echo false ; fi)
+    #         cd ..
+    #     done
+    # }
 
     password-make-file() {
         printf "Enter your Kerberos password... "
@@ -227,25 +227,25 @@ if [[ $(is_devdesktop) = no ]] ; then
     alias yearcat='for f in $HOME/var/notes/$(todays-year)/*.md ; do cat $f ; echo ; echo ; done'
 fi
 
-if [[ $(is_devdesktop) = no ]] ; then
-    ## Java 11 over /usr/bin/java
-    export PATH=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/:$PATH
-fi
-
 # Path variables and initialization scripts (can be timely)
 ## Needs to be above python calls, also used for:
 ##      - MIDWAY PATH: Path changed for ssh
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/$HOME/bin
 
-if [[ ! -L $(which pyenv) ]] ; then
-    eval "$(pyenv init -)"
-fi
+if [[ $(is_devdesktop) = no ]] ; then
+    ## Java 11 over /usr/bin/java
+    export PATH=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/:$PATH
+
+    if [[ ! -L $(which pyenv) ]] ; then
+        eval "$(pyenv init -)"
+    fi
 
 
-if [[ ! -L $(which rvm) ]] ; then
-    ## Load RVM into a shell session *as a function*
-    [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+    if [[ ! -L $(which rvm) ]] ; then
+        ## Load RVM into a shell session *as a function*
+        [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+    fi
 fi
 
 ## Zsh autocomplete
@@ -254,7 +254,7 @@ source $HOME/.git-completion.bash 2>/dev/null   # I know it's deprecated
 # source $HOME/.git-completion.zsh
 
 ## Avoid /bin/false errors
-export SHELL='/bin/bash'
+# export SHELL='/bin/zsh'
 
 if [[ $(get_computer_name) = work ]] ; then
     # Aliases
@@ -397,7 +397,15 @@ if [[ $(get_computer_name) = work ]] ; then
     export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
 fi
 
-autoload -U colors && colors
-## Tiger prompt
+if [[ $(is_devdesktop) = no ]] ; then
+    autoload -U colors && colors
+fi
+# Tiger prompt
 export PROMPT="%{$fg[cyan]%}%~
 %{$fg[green]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%}🐯 "
+
+touch $HOME/.histfile
+export HISTFILE=$HOME/.histfile
+export SAVEHIST=10000
+
+bindkey -v
