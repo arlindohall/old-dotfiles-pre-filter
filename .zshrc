@@ -174,6 +174,47 @@ tmux-list-sessions() {
     echo "$(tmux ls 2>/dev/null)"
 }
 
+if [[ $(is_devdesktop) = no ]] ; then
+    ## Aliases for notes and journals
+    alias todays-date='echo $(date +%Y/%m%d.md)'
+    alias todays-year='echo $(date +%Y)'
+    alias todays-journal='echo $HOME/var/journal/$(todays-date)'
+    alias todays-note='echo $HOME/var/notes/$(todays-date)'
+    alias time-right-now='echo $(date +%H:%M)'
+
+    alias journalcat='cat $(todays-journal)'
+    alias journalgo='cd $HOME/var/journal'
+    alias journal-index='journalgo && index && cd -'
+    alias journal-synthesize='cd $HOME/var/journal/$(todays-year) && diary-synthesize && cd -'
+
+    alias notecat='cat $(todays-note)'
+    alias notego='cd $HOME/var/notes'
+    alias note-index='notego && index && cd -'
+    alias note-synthesize='cd $HOME/var/notes/$(todays-year) && diary-synthesize && cd -'
+    alias yearcat='for f in $HOME/var/notes/$(todays-year)/*.md ; do cat $f ; echo ; echo ; done'
+
+    # Date, time, journal and notes functions
+    note() {
+        if [[ ! -f $(todays-note) ]] ; then
+            date +'# %B %d %Y' > $(todays-note)
+        fi
+        printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-note)
+        vim $(todays-note)
+        pandoc $(todays-note) -o $(todays-note)
+        note-index
+    }
+
+    journal() {
+        if [[ ! -f $(todays-journal) ]] ; then
+            date +'# %B %d %Y' > $(todays-journal)
+        fi
+        printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-journal)
+        vim $(todays-journal)
+        pandoc $(todays-journal) -o $(todays-journal)
+        journal-index
+    }
+fi
+
 what_are_my_shell_shortcuts() {
   echo "Python:  import code; code.interact(local=dict(globals(), **locals()))"
   echo "Ruby:    require 'pry'; binding.pry"
@@ -205,26 +246,6 @@ if [[ $(is_devdesktop) = no ]] ; then
     alias flagh-var="cd $HOME/var && flagh && cd -"
     alias flagh-note="cd $HOME/var/notes && flagh && cd -"
     alias flagh-journal="cd $HOME/var/journal && flagh && cd -"
-
-    ## Aliases for notes and journals
-    alias todays-date='echo $(date +%Y/%m%d.md)'
-    alias todays-year='echo $(date +%Y)'
-    alias todays-journal='echo $HOME/var/journal/$(todays-date)'
-    alias todays-note='echo $HOME/var/notes/$(todays-date)'
-    alias time-right-now='echo $(date +%H:%M)'
-
-    alias journal='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-journal) && vim $(todays-journal) && pandoc $(todays-journal) -o $(todays-journal) && journal-index'
-    alias journalcat='cat $(todays-journal)'
-    alias journalgo='cd $HOME/var/journal'
-    alias journal-index='journalgo && index && cd -'
-    alias journal-synthesize='cd $HOME/var/journal/$(todays-year) && diary-synthesize && cd -'
-
-    alias note='printf \\n\`$(time-right-now)\`\\n\\n >> $(todays-note) && vim $(todays-note) && pandoc $(todays-note) -o $(todays-note) && note-index'
-    alias notecat='cat $(todays-note)'
-    alias notego='cd $HOME/var/notes'
-    alias note-index='notego && index && cd -'
-    alias note-synthesize='cd $HOME/var/notes/$(todays-year) && diary-synthesize && cd -'
-    alias yearcat='for f in $HOME/var/notes/$(todays-year)/*.md ; do cat $f ; echo ; echo ; done'
 fi
 
 # Path variables and initialization scripts (can be timely)
