@@ -32,7 +32,7 @@ if [[ $(is_devdesktop) = no ]] ; then
 
     # Functions
     ## Determine git branch
-    get_main_git_branch() {
+    git_main_branch() {
     if [[ $(git branch) = *"mainline"* ]] ; then
         echo mainline
     else
