@@ -192,8 +192,12 @@ if [[ $(is_devdesktop) = no ]] ; then
     alias note-index='notego && index && cd -'
     alias note-synthesize='cd $HOME/var/notes/$(todays-year) && diary-synthesize && cd -'
     alias yearcat='for f in $HOME/var/notes/$(todays-year)/*.md ; do cat $f ; echo ; echo ; done'
+fi
 
+if [[ $(is_devdesktop) = no ]] ; then
     # Date, time, journal and notes functions
+    # in a separate block because of some zsh scoping rules I
+    # don't have time to look up
     note() {
         if [[ ! -f $(todays-note) ]] ; then
             date +'# %B %d %Y' > $(todays-note)
