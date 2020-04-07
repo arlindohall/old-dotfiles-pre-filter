@@ -312,6 +312,7 @@ if [[ $(get_computer_name) = work ]] ; then
 
     ## Aliases for folders
     alias go='cd $HOME/ws/RbqWebsite/src/RbqStaticWebsiteAssets'
+    alias e2e='cd $HOME/ws/RbqStaticWebsiteE2ETests/src/RbqStaticWebsiteE2ETests'
     alias reticle='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsServiceTests'
     alias canary='cd $HOME/ws/EpimCanary/src/EpimCanaryTest'
     alias ams='cd $HOME/ws/AccountManagementService/src/AWSAutomationAccountManagementService'
@@ -385,7 +386,7 @@ if [[ $(get_computer_name) = work ]] ; then
             destPort=$1; shift
             opts=$@
 
-            cmd="ssh -N -L $localPort:localhost:$destPort millerah.aka.corp.amazon.com $opts"
+            cmd="ssh -N -L ${localPort}:localhost:${destPort} desktop $opts"
 
             if test -n "$(tmux-list-sessions | grep $name)"
             then
@@ -395,7 +396,7 @@ if [[ $(get_computer_name) = work ]] ; then
                 echo Starting a new $name session because none exists...
             fi
 
-            echo $cmd
+            echo "$cmd"
             tmux-new-session $name "$cmd"
         }
 
