@@ -82,37 +82,38 @@ if [[ $(is_devdesktop) = no ]] ; then
     #     done
     # }
 
-    password-make-file() {
-        printf "Enter your Kerberos password... "
-        read -s kerb
-        printf "Enter your Midway password... "
-        read -s mid -p
-        echo "$kerb $mid" | openssl enc -e -aes256 -out .kmi
-    }
+    ## NOT SECURE DO NOT UNCOMMENT
+    # password-make-file() {
+    #     printf "Enter your Kerberos password... "
+    #     read -s kerb
+    #     printf "Enter your Midway password... "
+    #     read -s mid -p
+    #     echo "$kerb $mid" | openssl enc -e -aes256 -out .kmi
+    # }
 
-    password-get() {
-        cmd=$1
-        passw=$2
-        case $cmd in
-            kerb)
-            echo $(password-get-all $passw) | cut -f 1 -d ' '
-            ;;
-            mid)
-            echo $(password-get-all $passw) | cut -f 2 -d ' '
-            ;;
-        esac
-    }
+    # password-get() {
+    #     cmd=$1
+    #     passw=$2
+    #     case $cmd in
+    #         kerb)
+    #         echo $(password-get-all $passw) | cut -f 1 -d ' '
+    #         ;;
+    #         mid)
+    #         echo $(password-get-all $passw) | cut -f 2 -d ' '
+    #         ;;
+    #     esac
+    # }
 
-    password-get-all() {
-        openssl enc -d -aes256 -pass pass:"$1" -in .kmi
-    }
+    # password-get-all() {
+    #     openssl enc -d -aes256 -pass pass:"$1" -in .kmi
+    # }
 
-    kmi() {
-        printf "Enter your password... "
-        read -s pass
-        echo $(password-get kerb $pass) | kinit -f
-        echo $(password-get mid  $pass) | mwinit
-    }
+    # kmi() {
+    #     printf "Enter your password... "
+    #     read -s pass
+    #     echo $(password-get kerb $pass) | kinit -f
+    #     echo $(password-get mid  $pass) | mwinit
+    # }
 
     ## Make a pandoc preview
     alias pandoc-all='for f in $(ls *.md) ; do pandoc $f -o $(basename $f .md).html; done'
@@ -258,21 +259,6 @@ fi
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/$HOME/bin
 
-if [[ $(is_devdesktop) = no ]] ; then
-    ## Java 11 over /usr/bin/java
-    export PATH=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/:$PATH
-
-    if [[ ! -L $(which pyenv) ]] ; then
-        eval "$(pyenv init -)"
-    fi
-
-
-    if [[ ! -L $(which rvm) ]] ; then
-        ## Load RVM into a shell session *as a function*
-        [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-    fi
-fi
-
 ## Zsh autocomplete
 source $HOME/.git-completion.bash 2>/dev/null   # I know it's deprecated
 # Bash one works good enough
@@ -286,8 +272,7 @@ if [[ $(get_computer_name) = work ]] ; then
     ## Commonly used programs
     alias rip='/apollo/env/RIPCLI2/bin/ripcli rip'
     alias riph='/apollo/env/RIPCLI2/bin/ripcli help'
-    alias aws='/apollo/env/AmazonAwsCli/bin/aws'
-    alias brazil-octane='/apollo/env/OctaneBrazilTools/bin/brazil-octane'
+    # alias brazil-octane='/apollo/env/OctaneBrazilTools/bin/brazil-octane'
     alias eh='expand-hostclass --recurse'
 
     ## SSH
@@ -310,17 +295,6 @@ if [[ $(get_computer_name) = work ]] ; then
     alias bbra='bbr apollo-pkg'
     alias bjs='jshell --class-path "$(brazil-path run.classpath)"'
 
-    ## Aliases for folders
-    alias go='cd $HOME/ws/RbqWebsite/src/RbqStaticWebsiteAssets'
-    alias e2e='cd $HOME/ws/RbqStaticWebsiteE2ETests/src/RbqStaticWebsiteE2ETests'
-    alias reticle='cd $HOME/ws/EpimAwsServiceTests/src/EpimAwsServiceTests'
-    alias canary='cd $HOME/ws/EpimCanary/src/EpimCanaryTest'
-    alias ams='cd $HOME/ws/AccountManagementService/src/AWSAutomationAccountManagementService'
-    alias rms='cd $HOME/ws/ResourceManagementService/src/AWSAutomationResourceManagementService'
-    alias ers='cd $HOME/ws/EpimReportingService/src/EpimReportingService'
-    alias edp='cd $HOME/ws/EpimDataProviderLambda/src/EpimDataProviderLambda'
-    alias ecma='cd $HOME/ws/EpimCarnavalMonitorAuditLambda/src/EpimCarnavalMonitorAuditLambda'
-
     ## Other programs
     alias sam='brazil-build-tool-exec sam'
 
@@ -328,6 +302,11 @@ if [[ $(get_computer_name) = work ]] ; then
     mwinit-update() {
         curl -O https://s3.amazonaws.com/com.amazon.aws.midway.software/mac/mwinit \
         && chmod u+x mwinit && sudo mv mwinit /usr/local/bin/mwinit
+    }
+
+    mwinit() {
+        /usr/local/bin/mwinit && ssh-add
+        /usr/local/bin/mwinit --itar && ssh-add
     }
 
     if [ -f $HOME/zshrc-dev-dsk-post ]; then
@@ -340,6 +319,7 @@ if [[ $(get_computer_name) = work ]] ; then
     export PATH=$PATH:$HOME/node/bin
 
     if [[ $(is_devdesktop) = yes ]] ; then
+        alias aws='/apollo/env/AmazonAwsCli/bin/aws'
         for f in WildcardOpsTools envImprovement AmazonAwsCli OdinTools; do
             if [[ -d /apollo/env/$f ]]; then
                 export PATH=$PATH:/apollo/env/$f/bin
@@ -350,6 +330,13 @@ if [[ $(get_computer_name) = work ]] ; then
         ## Import other zshrc files
         source /apollo/env/WildcardOpsTools/dotfiles/zshrc
         source /apollo/env/envImprovement/var/zshrc
+
+        ## Path variables
+        export PATH=$HOME/.toolbox/bin:$PATH
+        export PATH=$PATH:$HOME/jdk/bin/
+        export PATH=$PATH:$HOME/node/bin
+        alias aws='/apollo/env/AmazonAwsCli/bin/aws'
+        alias brazil-octane='/apollo/env/OctaneBrazilTools/bin/brazil-octane'
 
         ## Alias to kill running brazil servers (kills all jobs)
         alias brazil-kill="kill -9 \$(brazil-server-name-running)"
@@ -437,3 +424,27 @@ export SAVEHIST=10000
 bindkey -v
 
 source $HOME/.cargo/env
+bindkey '^R' history-incremental-search-backward
+
+# Pyenv and RVM
+if [[ $(is_devdesktop) = no ]] ; then
+    ## Java 11 over /usr/bin/java
+    export PATH=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/:$PATH
+
+    #if [[ ! -L $(which pyenv) ]] ; then
+        eval "$(pyenv init -)"
+    #fi
+
+
+    if [[ ! -L $(which rvm) ]] ; then
+        ## Load RVM into a shell session *as a function*
+        [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+    fi
+fi
+
+# AWS Profiles
+if [[ $(get_computer_name) = work ]] ; then
+    export AWS_PROFILE=millerah
+else
+    export AWS_PROFILE=miller
+fi
