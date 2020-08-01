@@ -192,6 +192,8 @@ if [[ $(is_devdesktop) = no ]] ; then
     alias notego='cd $HOME/var/notes'
     alias note-index='notego && index && cd -'
     alias note-synthesize='cd $HOME/var/notes/$(todays-year) && diary-synthesize && cd -'
+    alias note-preview='grip `todays-note`'
+    alias note-preview-index='grip $HOME/var/notes/INDEX.md'
     alias yearcat='for f in $HOME/var/notes/$(todays-year)/*.md ; do cat $f ; echo ; echo ; done'
 fi
 
@@ -224,6 +226,12 @@ what_are_my_shell_shortcuts() {
   echo "Python:  import code; code.interact(local=dict(globals(), **locals()))"
   echo "Ruby:    require 'pry'; binding.pry"
   echo "RIP:     "rip -r iad -s ers -a custom_properties "|" ruby -pe "'"'$_.gsub!("=>", ":")'"'" "|" jq
+}
+
+up() {
+    for i in $(seq 1 $1) ; do
+        cd ..
+    done
 }
 
 # Aliases
@@ -294,6 +302,8 @@ if [[ $(get_computer_name) = work ]] ; then
     alias bball='brc --allPackages'
     alias bbra='bbr apollo-pkg'
     alias bjs='jshell --class-path "$(brazil-path run.classpath)"'
+    alias rst='rde stack'
+    alias renv='rde env'
 
     ## Other programs
     alias sam='brazil-build-tool-exec sam'
@@ -304,9 +314,11 @@ if [[ $(get_computer_name) = work ]] ; then
         && chmod u+x mwinit && sudo mv mwinit /usr/local/bin/mwinit
     }
 
-    mwinit() {
-        /usr/local/bin/mwinit && ssh-add
-        /usr/local/bin/mwinit --itar && ssh-add
+    ## Validate cloudformation templates
+    validate-cloudformation () {
+        aws s3 cp build/sam/template.yml s3://millerah-dev-scratch/cfn-templates/demoimage &&
+        aws cloudformation validate-template \
+                --template-url https://millerah-dev-scratch.s3.us-east-2.amazonaws.com/cfn-templates/demoimage
     }
 
     if [ -f $HOME/zshrc-dev-dsk-post ]; then
@@ -319,7 +331,6 @@ if [[ $(get_computer_name) = work ]] ; then
     export PATH=$PATH:$HOME/node/bin
 
     if [[ $(is_devdesktop) = yes ]] ; then
-        alias aws='/apollo/env/AmazonAwsCli/bin/aws'
         for f in WildcardOpsTools envImprovement AmazonAwsCli OdinTools; do
             if [[ -d /apollo/env/$f ]]; then
                 export PATH=$PATH:/apollo/env/$f/bin
@@ -426,21 +437,23 @@ bindkey -v
 source $HOME/.cargo/env
 bindkey '^R' history-incremental-search-backward
 
-# Pyenv and RVM
+# Pyenv, RVM, and rustup
 if [[ $(is_devdesktop) = no ]] ; then
     ## Java 11 over /usr/bin/java
     export PATH=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/:$PATH
 
     #if [[ ! -L $(which pyenv) ]] ; then
-        eval "$(pyenv init -)"
+        (eval "$(pyenv init -)" &) &> /dev/null
     #fi
 
 
     if [[ ! -L $(which rvm) ]] ; then
         ## Load RVM into a shell session *as a function*
-        [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+        ([[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" &) &> /dev/null
     fi
 fi
+
+source $HOME/.cargo/env
 
 # AWS Profiles
 if [[ $(get_computer_name) = work ]] ; then
