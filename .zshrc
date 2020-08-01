@@ -435,3 +435,5 @@ export HISTFILE=$HOME/.histfile
 export SAVEHIST=10000
 
 bindkey -v
+
+source $HOME/.cargo/env
