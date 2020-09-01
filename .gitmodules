@@ -1,6 +1,0 @@
-[submodule ".tmux"]
-	path = .tmux
-	url = https://github.com/gpakosz/.tmux.git
-[submodule "vim-slime"]
-	path = vim-slime
-	url = https://github.com/jpalardy/vim-slime.git
