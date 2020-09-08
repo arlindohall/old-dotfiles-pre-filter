@@ -27,6 +27,9 @@ end
 # Suppress greeting
 set fish_greeting
 
+# Use vim
+fish_vi_key_bindings
+
 # Work configs both Mac and Linux
 if test (get_computer_name) = work
     # Work path variables

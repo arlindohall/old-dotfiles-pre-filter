@@ -220,22 +220,6 @@ bindkey -v
 source $HOME/.cargo/env
 bindkey '^R' history-incremental-search-backward
 
-## Pyenv, RVM... eh
-if [[ $(is_devdesktop) = no ]] ; then
-    ## Java 11 over /usr/bin/java
-    export PATH=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/:$PATH
-
-    #if [[ ! -L $(which pyenv) ]] ; then
-        (eval "$(pyenv init -)" &) &> /dev/null
-    #fi
-
-
-    if [[ ! -L $(which rvm) ]] ; then
-        ## Load RVM into a shell session *as a function*
-        ([[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" &) &> /dev/null
-    fi
-fi
-
 ## AWS Profiles
 if [[ $(get_computer_name) = work ]] ; then
     export AWS_PROFILE=millerah
