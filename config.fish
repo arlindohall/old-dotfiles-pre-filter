@@ -14,8 +14,28 @@ alias tns='tmux_new_session'
 alias tks='tmux kill-session -t'
 alias tls="echo (tmux ls 2>/dev/null)"
 
+## Check for bad words
+##
+## This would otherwise be a rust binary, but because I'm
+## pleased with using curl here and I don't want to add
+## libcurl to the dependencies of the rust package, I think
+## this will suffice. Also I don't want to call back to the
+## shell for libcurl when there's a rust dependency for it.
+function manners
+    if test ! -f /tmp/swearWords.txt
+        curl -o /tmp/swearWords.txt http://www.bannedwordlist.com/lists/swearWords.txt
+    end
+    for word in (cat /tmp/swearWords.txt)
+        grep $word
+    end
+end
+
 ## Use local path first
 set -p PATH ~/var/bin
+
+## Added for MacPorts/GNU Radio
+set -a PATH /opt/local/bin
+set -a PATH /opt/local/sbin
 
 source ~/.cargo/env
 if test (is_devdesktop) = no
