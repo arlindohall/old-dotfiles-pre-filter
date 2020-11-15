@@ -1,18 +1,19 @@
 # Aliases
 
 ## Aliases for git commands
-alias gg='git goal'
-alias gd='git dag'
+alias gg 'git goal'
+alias gd 'git dag'
 
 ## Alias for programs
-alias grep='rg'
-alias lisp='sbcl'
-alias jk='tput reset'
+alias grep 'rg'
+alias lisp 'sbcl'
+alias jk 'tput reset'
+alias rvm '~/.rvm/bin/rvm'
 
 ## Aliases for tmux commands
-alias tns='tmux_new_session'
-alias tks='tmux kill-session -t'
-alias tls="echo (tmux ls 2>/dev/null)"
+alias tns 'tmux_new_session'
+alias tks 'tmux kill-session -t'
+alias tls "echo (tmux ls 2>/dev/null)"
 
 ## Check for bad words
 ##
@@ -47,8 +48,10 @@ end
 # Suppress greeting
 set fish_greeting
 
-# Use vim
+# Use vim, but remove prompt
 fish_vi_key_bindings
+alias fish_default_mode_prompt 'echo'
+alias fish_prompt 'echo "; "'
 
 # Work configs both Mac and Linux
 if test (get_computer_name) = work
@@ -65,6 +68,7 @@ if test (get_computer_name) = work
     alias bb        brazil-build
     alias brc       brazil-recursive-cmd
     alias bbr       'brazil-build release'
+    alias bbsr      'brazil-build standard-release'
     alias bbrec     'brc brazil-build release'
     alias bball     'brc --allPackages brazil-build'
     alias bjs       'jshell --class-path (brazil-path run.classpath)'
