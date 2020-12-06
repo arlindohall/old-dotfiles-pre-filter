@@ -26,9 +26,7 @@ function manners
     if test ! -f /tmp/swearWords.txt
         curl -o /tmp/swearWords.txt http://www.bannedwordlist.com/lists/swearWords.txt
     end
-    for word in (cat /tmp/swearWords.txt)
-        grep $word
-    end
+    tr -d ' ' < /tmp/swearWords.txt | tr -d '\r' | tr '\n' '|' | sed 's/.$//g' | xargs rg -w
 end
 
 ## Use local path first
@@ -51,7 +49,7 @@ set fish_greeting
 # Use vim, but remove prompt
 fish_vi_key_bindings
 alias fish_default_mode_prompt 'echo'
-alias fish_prompt 'echo "; "'
+# alias fish_prompt 'echo "; "'
 
 # Work configs both Mac and Linux
 if test (get_computer_name) = work

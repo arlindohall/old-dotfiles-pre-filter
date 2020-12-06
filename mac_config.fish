@@ -14,21 +14,20 @@ end
 ## Aliases for notes and journals
 alias 'todays-date'         'echo (date +%Y/%m%d.md)'
 alias 'todays-year'         'echo (date +%Y)'
-alias 'todays-journal'      'echo ~/var/notes/(todays-date)'
-alias 'todays-note'         'echo ~/var/notes/(todays-date)'
+alias 'todays-journal'      'echo ~/var/journal/src/(todays-date)'
+alias 'todays-note'         'echo ~/var/notes/src/(todays-date)'
 alias 'time-right-now'      'echo (date +%H:%M)'
 
 alias journalcat            'cat (todays-journal)'
-alias journalgo             'cd ~/var/journal'
+alias journalgo             'cd ~/var/journal/src'
 alias 'journal-index'       'journalgo && index && cd -'
 
 alias notecat               'cat (todays-note)'
-alias notego                'cd ~/var/notes'
+alias notego                'cd ~/var/notes/src'
 alias 'note-index'          'notego && index && cd -'
 
-alias 'note-preview'        'grip (todays-note)'
-alias 'note-preview-index'  'grip ~/var/notes/INDEX.md'
-alias yearcat               'cat ~/var/notes/(todays-year)/*.md'
+alias 'note-preview'        'cd ~/var/notes ; fish build.fish ; cd -'
+alias yearcat               'cat ~/var/notes/src/(todays-year)/*.md'
 
 
 function note
