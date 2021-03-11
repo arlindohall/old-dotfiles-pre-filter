@@ -29,6 +29,10 @@ function manners
     tr -d ' ' < /tmp/swearWords.txt | tr -d '\r' | tr '\n' '|' | sed 's/.$//g' | xargs rg -w
 end
 
+function dl
+    mv $argv $HOME/.rm-trash-can/
+end
+
 ## Hexdump is so hard to use
 alias hd-rows "hexdump -e '16/1 \"%02x\" \"\n\"'"
 alias hd "hexdump -e '\"%02x\"'"
