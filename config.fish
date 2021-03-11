@@ -29,6 +29,10 @@ function manners
     tr -d ' ' < /tmp/swearWords.txt | tr -d '\r' | tr '\n' '|' | sed 's/.$//g' | xargs rg -w
 end
 
+## Hexdump is so hard to use
+alias hd-rows "hexdump -e '16/1 \"%02x\" \"\n\"'"
+alias hd "hexdump -e '\"%02x\"'"
+
 ## Use local path first
 set -p PATH ~/var/bin
 
