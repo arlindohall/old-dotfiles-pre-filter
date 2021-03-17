@@ -1,5 +1,6 @@
 ## Path variables
 set -p PATH ~/pybin/bin
+set -p PATH ~/.rbenv/shims/
 set -a PATH /usr/local/bin
 # set -a PATH /opt/java/bin
 set -p PATH /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/
