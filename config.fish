@@ -99,9 +99,14 @@ if test (get_computer_name) = work
     end
 end
 
+function authenticate
+    isengard get --format fish $argv > /tmp/creds
+end
+alias authenticate-default 'authenticate 832276593114 Admin'
+alias authenticate-ottoman 'authenticate 715552233408 admin'
 
 if test (get_computer_name) = work
-    set -x AWS_PROFILE millerah
+    # Do not get creds until mwinit
 else
     set -x AWS_PROFILE miller
 end
