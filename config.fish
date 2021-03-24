@@ -35,7 +35,7 @@ end
 
 ## Hexdump is so hard to use
 alias hd-rows "hexdump -e '16/1 \"%02x\" \"\n\"'"
-alias hd "hexdump -e '\"%02x\"'"
+alias hd "hd-rows | tr -d '\n' | tr -d ' '"
 
 ## Use local path first
 set -p PATH ~/var/bin
