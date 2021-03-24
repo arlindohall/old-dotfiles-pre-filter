@@ -97,6 +97,16 @@ if test (get_computer_name) = work
             && aws cloudformation validate-template \
                 --template-url https://millerah-dev-scratch.s3.us-east-2.amazonaws.com/cfn-templates/demoimage
     end
+
+    function cr --wraps=cr
+        for p in $PATH
+            if ! test (string match '*rbenv*' $p)
+                set -a NEW_PATH $p
+            end
+        end
+        set -l CMD (which cr)
+        PATH=$NEW_PATH $CMD
+     end
 end
 
 function authenticate
