@@ -125,6 +125,7 @@ end
 alias authenticate-default 'authenticate 832276593114 Admin'
 alias authenticate-ottoman 'authenticate 715552233408 admin'
 
+set -x AWS_PAGER ''
 if test (get_computer_name) = work
     # Do not get creds until mwinit
 else
