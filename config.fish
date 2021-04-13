@@ -105,7 +105,17 @@ if test (get_computer_name) = work
             end
         end
         set -l CMD (which cr)
-        PATH=$NEW_PATH $CMD
+        PATH=$NEW_PATH $CMD $argv
+     end
+
+    function cr-pull --wraps=cr-pull
+        for p in $PATH
+            if ! test (string match '*rbenv*' $p)
+                set -a NEW_PATH $p
+            end
+        end
+        set -l CMD (which cr-pull)
+        PATH=$NEW_PATH $CMD $argv
      end
 end
 
