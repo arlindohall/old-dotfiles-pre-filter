@@ -60,7 +60,7 @@ end
 
 # Work specific configurations
 if test (get_computer_name) = work
-    function ninja --wraps=ninja-dev-sync
+    function ninja-sync --wraps=ninja-dev-sync
         tls | grep ninja
         if test $status -eq 0 # match found, 1 is no mathc
             echo Killing existing ninja-dev-sync session and starting a new one...
