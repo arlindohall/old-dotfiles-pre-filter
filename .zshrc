@@ -13,8 +13,15 @@ alias tns='tmux_new_session'
 alias tks='tmux kill-session -t'
 alias tls='echo $(tmux ls 2>/dev/null)'
 
+if [[ $($HOME/var/bin/is_devdesktop) = yes ]] ; then
+    # Import other zshrc files
+    #
+    # This has to come before path modifications
+    source /apollo/env/envImprovement/var/zshrc
+fi
+
 ## Use local path first
-export PATH=~/var/bin:$PATH
+export PATH=$HOME/var/bin:$PATH
 
 ## Aliases for journal and notes
 
@@ -131,10 +138,6 @@ if [[ $(get_computer_name) = work ]] ; then
                 export PATH=$PATH:/apollo/env/$f/bin
             fi
         done
-
-        # Environment Variables
-        ## Import other zshrc files
-        source /apollo/env/envImprovement/var/zshrc
 
         export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
     else
