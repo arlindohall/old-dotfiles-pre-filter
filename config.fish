@@ -15,6 +15,9 @@ alias tns 'tmux_new_session'
 alias tks 'tmux kill-session -t'
 alias tls "echo (tmux ls 2>/dev/null)"
 
+## Run pi-hole locally
+alias pihole 'docker run --rm -d -v pihole-etc:/etc/ -p 6080:80 -p 53:53/tcp -p 53:53/udp --name pihole pihole/pihole:latest'
+
 ## Check for bad words
 ##
 ## This would otherwise be a rust binary, but because I'm
