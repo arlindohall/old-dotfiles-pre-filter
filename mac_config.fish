@@ -101,8 +101,10 @@ if test (get_computer_name) = work
             echo $argv
         end
         /usr/bin/ssh -2 $argv
+        set retval $status
         function fish_title
             echo $HOST
         end
+        return $retval
     end
 end
