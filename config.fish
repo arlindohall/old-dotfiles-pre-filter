@@ -140,3 +140,7 @@ if test (get_computer_name) = work
 else
     set -x AWS_PROFILE miller
 end
+
+# Android studio
+set -x ANDROID_SDK_ROOT $HOME/Library/Android/sdk/
+set -a PATH $ANDROID_SDK_ROOT/emulator $ANDROID_SDK_ROOT/tools $ANDROID_SDK_ROOT/tools/bin $ANDROID_SDK_ROOT/platform-tools
