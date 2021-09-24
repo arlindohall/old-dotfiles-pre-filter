@@ -1,5 +1,11 @@
 # Aliases
 
+## Upgrade the aws CLI (base version)
+function upgrade_aws
+    curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+    sudo installer -pkg AWSCLIV2.pkg -target /
+end
+
 ## Aliases for git commands
 alias gg 'git goal'
 alias gd 'git dag'
