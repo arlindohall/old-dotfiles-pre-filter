@@ -47,11 +47,7 @@ alias hd-rows "hexdump -e '16/1 \"%02x\" \"\n\"'"
 alias hd "hd-rows | tr -d '\n' | tr -d ' '"
 
 ## Use local path first
-set -p PATH ~/var/bin
-
-## Added for MacPorts/GNU Radio
-set -a PATH /opt/local/bin
-set -a PATH /opt/local/sbin
+fish_add_path -p ~/var/bin
 
 source ~/.cargo/env
 if test (is_devdesktop) = no
@@ -65,82 +61,9 @@ set fish_greeting
 
 # Use vim, but remove prompt
 fish_vi_key_bindings
-alias fish_default_mode_prompt 'echo'
+# alias fish_default_mode_prompt 'echo'
 # alias fish_prompt 'echo "; "'
 
-# Work configs both Mac and Linux
-if test (get_computer_name) = work
-    # Work path variables
-    set -p PATH ~/.toolbox/bin
-
-    # Work aliases
-
-    ## Unsure if I still use these
-    # alias rip '/apollo/env/RIPCLI2/bin/ripcli rip'
-    # alias eh 'expand-hostclass --recurse'
-
-    ## Brazil shortcuts
-    alias bb        brazil-build
-    alias brc       brazil-recursive-cmd
-    alias bbr       'brazil-build release'
-    alias bbsr      'brazil-build standard-release'
-    alias bbrec     'brc brazil-build release'
-    alias bball     'brc --allPackages brazil-build'
-    alias bjs       'jshell --class-path (brazil-path run.classpath)'
-    alias rst       'rde stack'
-    alias renv      'rde env'
-
-    ## Other amazon shortcuts
-    alias sam       'brazil-build-tool-exec sam'
-
-    ## Mwinit update command
-    function mwinit-update
-        curl -O https://s3.amazonaws.com/com.amazon.aws.midway.software/mac/mwinit \
-            && chmod u+x mwinit \
-            && sudo mv mwinit /usr/local/bin/mwinit
-    end
-
-    ## Validate cloudformation templates
-    function validate-cloudformation
-        aws s3 cp build/sam/template.yml s3://millerah-dev-scratch/cfn-templates/demoimage \
-            && aws cloudformation validate-template \
-                --template-url https://millerah-dev-scratch.s3.us-east-2.amazonaws.com/cfn-templates/demoimage
-    end
-
-    function cr --wraps=cr
-        for p in $PATH
-            if ! test (string match '*rbenv*' $p)
-                set -a NEW_PATH $p
-            end
-        end
-        set -l CMD (which cr)
-        PATH=$NEW_PATH $CMD $argv
-     end
-
-    function cr-pull --wraps=cr-pull
-        for p in $PATH
-            if ! test (string match '*rbenv*' $p)
-                set -a NEW_PATH $p
-            end
-        end
-        set -l CMD (which cr-pull)
-        PATH=$NEW_PATH $CMD $argv
-     end
-end
-
-function authenticate
-    isengard get --format fish $argv > /tmp/creds
-end
-alias authenticate-default 'authenticate 832276593114 Admin'
-alias authenticate-ottoman 'authenticate 715552233408 admin'
-
 set -x AWS_PAGER ''
-if test (get_computer_name) = work
-    # Do not get creds until mwinit
-else
-    set -x AWS_PROFILE miller
-end
+set -x AWS_PROFILE miller
 
-# Android studio
-set -x ANDROID_SDK_ROOT $HOME/Library/Android/sdk/
-set -a PATH $ANDROID_SDK_ROOT/emulator $ANDROID_SDK_ROOT/tools $ANDROID_SDK_ROOT/tools/bin $ANDROID_SDK_ROOT/platform-tools
