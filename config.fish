@@ -14,7 +14,6 @@ alias gd 'git dag'
 alias grep 'rg'
 alias lisp 'sbcl'
 alias jk 'tput reset'
-alias rvm '~/.rvm/bin/rvm'
 
 ## Aliases for tmux commands
 alias tns 'tmux_new_session'
@@ -67,3 +66,4 @@ fish_vi_key_bindings
 set -x AWS_PAGER ''
 set -x AWS_PROFILE miller
 
+rvm default

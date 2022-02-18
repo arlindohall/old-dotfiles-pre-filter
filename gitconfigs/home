@@ -14,7 +14,7 @@
 	ssr = submodule status --recursive
 	subdiff = submodule foreach --recursive git diff master
 	subbranch = submodule foreach --recursive git branch
-	goal = log --graph --oneline --all
+	goal = log --graph --oneline --all --decorate
 [diff]
 	tool = meld
 [difftool]
