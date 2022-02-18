@@ -1,6 +1,13 @@
+[include]
+	path = /Users/millerhall/.config/dev/gitconfig
 [user]
-	email = miller.hall@shopify.com
 	name = Miller Arlindo Hall
+	email = miller.hall@shopify.com
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [color]
 	ui = auto
 [core]
