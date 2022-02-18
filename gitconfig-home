@@ -1,6 +1,6 @@
 [user]
 	email = hall@hey.com
-	name = Miller Hall
+	name = Miller Arlindo Hall
 [color]
 	ui = auto
 [core]
@@ -10,24 +10,6 @@
 [alias]
 	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
 	dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order --all
-	dw = diff -w
-	ssr = submodule status --recursive
-	subdiff = submodule foreach --recursive git diff master
-	subbranch = submodule foreach --recursive git branch
 	goal = log --graph --oneline --all --decorate
-[diff]
-	tool = meld
-[difftool]
-	prompt = false
-[difftool "meld"]
-	trustExitCode = true
-	cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
-[merge]
-	tool = meld
-[mergetool]
-	prompt = false
-[mergetool "meld"]
-	trustExitCode = true
-	cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
 [init]
 	defaultBranch = main

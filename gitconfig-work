@@ -1,37 +1,16 @@
 [user]
-	email = millerah@amazon.com
-	name = Miller Hall
+	email = miller.hall@shopify.com
+	name = Miller Arlindo Hall
 [color]
 	ui = auto
 [core]
 	pager = less -FMRiX
-	excludesfile = /Users/millerah/.gitignore_global
 [push]
 	default = simple
 [alias]
 	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
 	dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order --all
-	dw = diff -w
-	ssr = submodule status --recursive
-	subdiff = submodule foreach --recursive git diff master
-	subbranch = submodule foreach --recursive git branch
-	goal = log --graph --oneline --all
-[amazon]
-	append-cr-url = true
-	pull-request-by-default = true
-[diff]
-	tool = meld
-[difftool]
-	prompt = false
-[difftool "meld"]
-	trustExitCode = true
-	cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
-[merge]
-	tool = meld
-[mergetool]
-	prompt = false
-[mergetool "meld"]
-	trustExitCode = true
-	cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
-[pull]
-	ff = only
+	goal = log --graph --oneline --all --decorate
+[init]
+	defaultBranch = main
+
