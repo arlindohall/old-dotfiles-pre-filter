@@ -148,7 +148,7 @@ function install_pybin {
 }
 
 function homebrew_tools_installed {
-    which rg && which watch && which node && which fish
+    which rg && which watch && which node && which fish && which tmux
 }
 
 function install_homebrew_tools {
@@ -160,6 +160,7 @@ function install_homebrew_tools {
         rg \
         fish \
         node \
+        tmux \
         watch
 }
 
