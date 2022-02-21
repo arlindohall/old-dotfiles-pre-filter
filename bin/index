@@ -11,6 +11,8 @@ class Index
     end
 
     def write
+        return if is_git?
+
         build_index
 
         @dir.join('INDEX.md').write <<~EOF
@@ -39,19 +41,23 @@ class Index
         EOF
     end
 
-    def build_index
-        @dir.each_child do |child|
-            if child.basename.to_s.eql? ".git"
-                # continue
-            elsif child.directory?
-                @directories << child
+    private
 
-                Index.new(child).write
-            elsif child.file?
-                @files << child
+        def build_index
+            @dir.each_child do |child|
+                if child.directory?
+                    @directories << child
+
+                    Index.new(child).write
+                elsif child.file?
+                    @files << child
+                end
             end
         end
-    end
+
+        def is_git?
+            @dir.basename.to_s.eql? ".git"
+        end
 end
 
 Pathname.new('.').children.each do |child|
