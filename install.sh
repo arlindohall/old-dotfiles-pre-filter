@@ -2,48 +2,100 @@
 
 #### Top-level command ###
 function install {
-    if $(is_mac) ; then
-        install_mac
-    elif $(is_linux) ; then
-        install_linux
+    if hostname | grep 'work' && is_mac ; then
+        install_work_mac
+    elif hostname | grep 'home' && is_mac ; then
+        install_home_mac
+    elif hostname | grep 'droplet' && is_linux ; then
+        install_home_linux
+    else
+        install_work_linux
     fi
-}
-
-#### Utility functions ####
-function is_mac {
-    ruby -e 'puts `uname`.downcase.include? "darwin"'
 }
 
 function is_linux {
-    ruby -e 'puts !`uname`.downcase.include? "darwin"'
+    uname | grep -i 'linux'
 }
 
-function is_work {
-    ruby -e 'puts `hostname`.downcase.include? "work"'
+function is_mac {
+    uname | grep -i 'darwin'
 }
 
-function is_home {
-    ruby -e 'puts `hostname`.downcase.include? "home"'
-}
+#### Utility functions ####
+function rc_install {
+    source=$1
+    dest=$HOME/$2
 
-#### Delegate commands ####
-function install_mac {
-    if is_work ; then
-        install_work_mac
-    elif is_home ; then
-        install_home_mac
-    fi
-}
-
-function install_linux {
-    if is_work ; then
-        install_work_linux
-    elif is_home ; then
-        install_home_linux
-    fi
+    cp $source $dest
 }
 
 #### Dotfile placement and env config ####
+function install_home_mac {
+    install_homebrew
+    install_rust
+    install_rvm
+    install_pybin
+    install_git
+    install_openjdk
+
+    install_homebrew_tools
+
+    rc_install bash-bash_profile        .bash_profile
+    rc_install fish-config              .config/fish/config.fish
+    rc_install fish-mac_config          .config/fish/mac_config.fish
+    rc_install gitconfig-home           .gitconfig
+    rc_install sh-inputrc               .inputrc
+    rc_install sh-profile               .profile
+    rc_install tmux-conf                .tmux.conf
+    rc_install vim-vimrc                .vimrc
+}
+
+function install_home_linux {
+    install_homebrew
+    install_rust
+    install_rvm
+    install_pybin
+    install_git
+    install_openjdk
+
+    install_homebrew_tools
+
+    rc_install bash-bash_profile        .bash_profile
+    rc_install fish-config              .config/fish/config.fish
+    rc_install gitconfig-home           .gitconfig
+    rc_install sh-inputrc               .inputrc
+    rc_install sh-profile               .profile
+    rc_install tmux-conf                .tmux.conf
+    rc_install vim-vimrc                .vimrc
+}
+
+function install_work_mac {
+    install_homebrew
+    install_rust
+    install_rvm
+    install_pybin
+    install_git
+
+    install_homebrew_tools
+
+    rc_install bash-bash_profile        .bash_profile
+    rc_install fish-config              .config/fish/config.fish
+    rc_install fish-mac_config          .config/fish/mac_config.fish
+    rc_install gitconfig-work           .gitconfig
+    rc_install sh-inputrc               .inputrc
+    rc_install sh-profile               .profile
+    rc_install tmux-conf                .tmux.conf
+    rc_install vim-vimrc                .vimrc
+}
+
+function install_work_linux {
+    ## Dotfiles only for now
+    rc_install gitconfig-work           .gitconfig
+    rc_install sh-inputrc               .inputrc
+    rc_install sh-profile               .profile
+    rc_install tmux-conf                .tmux.conf
+    rc_install vim-vimrc                .vimrc
+}
 
 #### Specific installations ####
 function install_homebrew {
@@ -139,3 +191,5 @@ function install_openjdk {
         open "https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html"
     fi
 }
+
+install
