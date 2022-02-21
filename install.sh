@@ -49,6 +49,7 @@ function install_home_mac {
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile
     rc_install tmux-conf                .tmux.conf
+    rc_install tmux-conf_local          .tmux.conf.local
     rc_install vim-vimrc                .vimrc
 }
 
@@ -68,6 +69,7 @@ function install_home_linux {
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile
     rc_install tmux-conf                .tmux.conf
+    rc_install tmux-conf_local          .tmux.conf.local
     rc_install vim-vimrc                .vimrc
 }
 
@@ -87,6 +89,7 @@ function install_work_mac {
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile
     rc_install tmux-conf                .tmux.conf
+    rc_install tmux-conf_local          .tmux.conf.local
     rc_install vim-vimrc                .vimrc
 }
 
@@ -96,6 +99,7 @@ function install_work_linux {
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile
     rc_install tmux-conf                .tmux.conf
+    rc_install tmux-conf_local          .tmux.conf.local
     rc_install vim-vimrc                .vimrc
 }
 
