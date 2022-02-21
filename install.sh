@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euxo pipefail
+
 #### Top-level command ###
 function install {
     if hostname | grep 'work' && is_mac ; then
@@ -167,7 +169,7 @@ function install_git {
 
     if $(is_linux) ; then
         apt install git
-    elif
+    else
         xcode-select --install
     fi
 }
