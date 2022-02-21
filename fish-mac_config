@@ -4,12 +4,6 @@ fish_add_path /usr/local/bin
 fish_add_path -p /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/
 
 
-## Git config simlink
-if test ! -L ~/.gitconfig
-    ln -s ~/var/rcfiles/gitconfigs/(get_computer_name) ~/.gitconfig
-end
-
-
 ## Aliases for notes and journals
 alias 'todays-date'         'echo (date +%Y/%m%d.md)'
 alias 'todays-year'         'echo (date +%Y)'
