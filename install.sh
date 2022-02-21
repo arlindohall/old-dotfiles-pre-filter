@@ -41,10 +41,11 @@ function install_home_mac {
     install_openjdk
 
     install_homebrew_tools
+    install_personal_bin
 
     rc_install bash-bash_profile        .bash_profile
     rc_install fish-config              .config/fish/config.fish
-    rc_install fish-mac_config          .config/fish/mac_config.fish
+    rc_install fish-mac_config          .config/fish/conf.d/mac_config.fish
     rc_install gitconfig-home           .gitconfig
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile
@@ -62,6 +63,7 @@ function install_home_linux {
     install_openjdk
 
     install_homebrew_tools
+    install_personal_bin
 
     rc_install bash-bash_profile        .bash_profile
     rc_install fish-config              .config/fish/config.fish
@@ -81,6 +83,7 @@ function install_work_mac {
     install_git
 
     install_homebrew_tools
+    install_personal_bin
 
     rc_install bash-bash_profile        .bash_profile
     rc_install fish-config              .config/fish/config.fish
@@ -95,6 +98,8 @@ function install_work_mac {
 
 function install_work_linux {
     ## Dotfiles only for now
+    install_personal_bin
+
     rc_install gitconfig-work           .gitconfig
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile
@@ -161,6 +166,10 @@ function install_homebrew_tools {
         node \
         tmux \
         watch
+}
+
+function install_personal_bin {
+    cp -r ./bin $HOME/
 }
 
 function install_git {

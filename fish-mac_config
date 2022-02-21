@@ -1,7 +1,6 @@
 ## Path variables
-fish_add_path -p ~/pybin/bin
-fish_add_path /usr/local/bin
-fish_add_path -p /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/
+fish_add_path       /usr/local/bin
+fish_add_path -p    /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/
 
 
 ## Aliases for notes and journals

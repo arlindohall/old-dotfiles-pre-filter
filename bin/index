@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+
+class Index
+    def initialize dir
+        @dir            = dir
+
+        @directories    = []
+        @files          = []
+    end
+
+    def write
+        build_index
+
+        @dir.join('INDEX.md').write <<~EOF
+        # Index
+
+        ## Directories
+
+        #{@directories.map(&:basename)
+            .map(&:to_s)
+            .sort
+            .map{ |name| "- [#{name}](#{name}/INDEX.md)" }
+            .join("\n")}
+
+        ## Files
+
+        #{@files.map(&:basename)
+            .map(&:to_s)
+            .filter{ |name| !name.eql? "INDEX.md" }
+            .sort
+            .map{ |name| "- [#{name}](#{name})" }
+            .join("\n")}
+
+
+        [Return to Parent...](../INDEX.md)
+
+        EOF
+    end
+
+    def build_index
+        @dir.each_child do |child|
+            if child.basename.to_s.eql? ".git"
+                # continue
+            elsif child.directory?
+                @directories << child
+
+                Index.new(child).write
+            elsif child.file?
+                @files << child
+            end
+        end
+    end
+end
+
+Pathname.new('.').children.each do |child|
+    if child.directory?
+        Index.new(child).write
+    end
+end

@@ -19,8 +19,9 @@ function dl
 end
 
 ## Use local path first
-fish_add_path -p $HOME/bin
-fish_add_path $HOME/.cargo/bin
+fish_add_path -p    $HOME/bin
+fish_add_path -p    ~/pybin/bin
+fish_add_path       $HOME/.cargo/bin
 
 # Suppress greeting
 set fish_greeting
