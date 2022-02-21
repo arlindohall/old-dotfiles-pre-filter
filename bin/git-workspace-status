@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+
+Pathname.new('.').each_child do |child|
+    if child.directory? && child.join('.git').exist?
+        puts "\n----- #{child.basename} -----\n\n"
+        system <<~EOF
+            cd #{child}
+            git status
+        EOF
+    end
+end
