@@ -131,7 +131,7 @@ function install_rvm {
         gpg_command=gpg
     fi
 
-    $(gpg_command) --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+    $gpg_command --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
     curl -sSL https://get.rvm.io | bash -s stable
 
     # Fish configuration
@@ -143,8 +143,7 @@ function install_pybin {
         return
     fi
 
-    cd $HOME
-    python3 -m venv pybin
+    python3 -m venv $HOME/pybin
 }
 
 function homebrew_tools_installed {
@@ -184,15 +183,13 @@ function install_openjdk {
     if $(is_linux) ; then
         curl -LO https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz
         sudo mv amazon-corretto-11-x64-linux-jdk.tar.gz /opt/
-        cd /opt/
 
-        unzip amazon-corretto-11-x64-linux-jdk.tar.gz
-
-        cd $HOME
+        read -p "In a new shell, unzip the corretto installation, press any key to continue..."
     elif $(is_mac) ; then
         echo "Install java from the amazon downloads page: [link should open automatically]"
         echo "For help see: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html"
         open "https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html"
+        read -p "Press any key to continue"
     fi
 }
 
