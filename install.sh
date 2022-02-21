@@ -46,6 +46,7 @@ function install_home_mac {
     rc_install bash-bash_profile        .bash_profile
     rc_install fish-config              .config/fish/config.fish
     rc_install fish-mac_config          .config/fish/conf.d/mac_config.fish
+    rc_install fish-home_mac_config          .config/fish/conf.d/home_mac_config.fish
     rc_install gitconfig-home           .gitconfig
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile

@@ -3,16 +3,11 @@ fish_add_path       /usr/local/bin
 fish_add_path -p    /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/
 
 
-## Aliases for notes and journals
+## Aliases for notes
 alias 'todays-date'         'echo (date +%Y/%m%d.md)'
 alias 'todays-year'         'echo (date +%Y)'
-alias 'todays-journal'      'echo ~/var/journal/src/(todays-date)'
 alias 'todays-note'         'echo ~/var/notes/src/(todays-date)'
 alias 'time-right-now'      'echo (date +%H:%M)'
-
-alias journalcat            'cat (todays-journal)'
-alias journalgo             'cd ~/var/journal/src'
-alias 'journal-index'       'journalgo && index && cd -'
 
 alias notecat               'cat (todays-note)'
 alias notego                'cd ~/var/notes/src'
@@ -33,18 +28,5 @@ function note
     vim (todays-note)
     pandoc (todays-note) -o (todays-note)
     note-index
-end
-
-function journal
-    if test ! -f (todays-journal)
-        date +'# %B %d %Y' > (todays-journal)
-    end
-    echo >> (todays-journal)
-    echo (time-right-now) >> (todays-journal)
-    echo >> (todays-journal)
-    echo >> (todays-journal)
-    vim (todays-journal)
-    pandoc (todays-journal) -o (todays-journal)
-    journal-index
 end
 

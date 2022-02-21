@@ -1,0 +1,20 @@
+# Depends on fish-mac_config
+# Installed in $HOME/.config/fish/conf.d/
+
+alias 'todays-journal'      'echo ~/var/journal/src/(todays-date)'
+alias journalcat            'cat (todays-journal)'
+alias journalgo             'cd ~/var/journal/src'
+alias 'journal-index'       'journalgo && index && cd -'
+
+function journal
+    if test ! -f (todays-journal)
+        date +'# %B %d %Y' > (todays-journal)
+    end
+    echo >> (todays-journal)
+    echo (time-right-now) >> (todays-journal)
+    echo >> (todays-journal)
+    echo >> (todays-journal)
+    vim (todays-journal)
+    pandoc (todays-journal) -o (todays-journal)
+    journal-index
+end
