@@ -109,7 +109,7 @@ function install_homebrew {
 }
 
 function install_rust {
-    if which cargo ; then
+    if ls $HOME/.cargo/bin/cargo ; then
         return
     fi
 
@@ -144,10 +144,7 @@ function install_pybin {
 }
 
 function homebrew_tools_installed {
-    brew list | grep rg &&
-        brew list | grep fish &&
-        brew list | grep node &&
-        brew list | grep watch
+    which rg && which watch && which node && which fish
 }
 
 function install_homebrew_tools {
