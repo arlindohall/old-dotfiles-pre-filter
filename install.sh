@@ -175,6 +175,7 @@ function install_homebrew_tools {
         fish \
         node \
         tmux \
+        graphviz \
         watch
 }
 
