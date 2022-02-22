@@ -176,6 +176,7 @@ function install_homebrew_tools {
         node \
         tmux \
         graphviz \
+        pandoc \
         watch
 }
 
