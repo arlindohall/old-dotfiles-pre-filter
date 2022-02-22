@@ -1,7 +1,6 @@
 ## Path variables
 fish_add_path       /usr/local/bin
-fish_add_path -p    /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/bin/
-
+fish_add_path       /opt/homebrew/bin
 
 ## Aliases for notes
 alias 'todays-date'         'echo (date +%Y/%m%d.md)'

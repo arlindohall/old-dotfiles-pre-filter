@@ -74,6 +74,7 @@ function install_home_linux {
 
     rc_install bash-bash_profile        .bash_profile
     rc_install fish-config              .config/fish/config.fish
+    rc_install fish-linux_config        .config/fish/conf.d/linux_config.fish
     rc_install gitconfig-home           .gitconfig
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile
@@ -196,6 +197,13 @@ function install_git {
     fi
 }
 
+unzip_corretto_openjdk=<<EOF
+cd /opt/
+gzcat amazon-corretto-11-x64-linux-jdk.tar.gz | tar xvf -
+rm amazon-corretto-11-x64-linux-jdk.tar.gz
+mv amazon-corretto* amazon-corretto-11
+EOF
+
 function install_openjdk {
     if ls /opt/amazon-corretto-11/ || ls /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk ; then
         return
@@ -205,7 +213,7 @@ function install_openjdk {
         curl -LO https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz
         sudo mv amazon-corretto-11-x64-linux-jdk.tar.gz /opt/
 
-        read -p "In a new shell, unzip the corretto installation, press any key to continue..."
+        bash -c $unzip_corretto_openjdk
     elif $(is_mac) ; then
         echo "Install java from the amazon downloads page: [link should open automatically]"
         echo "For help see: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html"
