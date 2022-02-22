@@ -43,10 +43,16 @@ function install_home_mac {
     install_homebrew_tools
     install_personal_bin
 
+    # These steps are interactive, so the script must be run
+    # by a human and not by automation
+    clone_var_repo notes
+    clone_var_repo journal
+    clone_var_repo essays
+
     rc_install bash-bash_profile        .bash_profile
     rc_install fish-config              .config/fish/config.fish
     rc_install fish-mac_config          .config/fish/conf.d/mac_config.fish
-    rc_install fish-home_mac_config          .config/fish/conf.d/home_mac_config.fish
+    rc_install fish-home_mac_config     .config/fish/conf.d/home_mac_config.fish
     rc_install gitconfig-home           .gitconfig
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile
@@ -86,9 +92,13 @@ function install_work_mac {
     install_homebrew_tools
     install_personal_bin
 
+    # These steps are interactive, so the script must be run
+    # by a human and not by automation
+    clone_var_repo notes
+
     rc_install bash-bash_profile        .bash_profile
     rc_install fish-config              .config/fish/config.fish
-    rc_install fish-mac_config          .config/fish/mac_config.fish
+    rc_install fish-mac_config          .config/fish/conf.d/mac_config.fish
     rc_install gitconfig-work           .gitconfig
     rc_install sh-inputrc               .inputrc
     rc_install sh-profile               .profile
@@ -98,7 +108,6 @@ function install_work_mac {
 }
 
 function install_work_linux {
-    ## Dotfiles only for now
     install_personal_bin
 
     rc_install gitconfig-work           .gitconfig
@@ -201,6 +210,12 @@ function install_openjdk {
         open "https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html"
         read -p "Press any key to continue"
     fi
+}
+
+function clone_var_repo {
+    repo=$1
+
+    git clone https://gitlab.com/arlindohall/$repo $HOME/var/$repo
 }
 
 install
