@@ -215,6 +215,10 @@ function install_openjdk {
 function clone_var_repo {
     repo=$1
 
+    if ls $HOME/var/$repo ; then
+        return
+    fi
+
     git clone https://gitlab.com/arlindohall/$repo $HOME/var/$repo
 }
 
