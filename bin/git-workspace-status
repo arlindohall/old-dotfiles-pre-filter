@@ -2,12 +2,16 @@
 
 require 'pathname'
 
-Pathname.new('.').each_child do |child|
+def inspect_git_repos(path)
+  path.each_child do |child|
     if child.directory? && child.join('.git').exist?
         puts "\n----- #{child.basename} -----\n\n"
         system <<~EOF
-            cd #{child}
-            git status
+        cd #{child}
+        git status
         EOF
     end
+  end
 end
+
+inspect_git_repos(Pathname.new('.'))
