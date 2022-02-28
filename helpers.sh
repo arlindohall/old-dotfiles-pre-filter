@@ -27,3 +27,9 @@ function is_linux {
 function is_mac {
     uname | grep -i 'darwin'
 }
+
+function set_up_directory_structure {
+    mkdir -p $HOME/.rm-trash-can
+    mkdir -p $HOME/var
+    mkdir -p $HOME/workspace
+}

@@ -3,3 +3,6 @@ source /etc/zsh/zshrc.default.inc.zsh
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
+function dl {
+    mv $@ $HOME/.rm-trash-can/
+}
