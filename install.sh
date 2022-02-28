@@ -6,6 +6,7 @@ set -euxo pipefail
 
 #### Dotfile placement and env config ####
 function install_home_mac {
+    set_up_directory_structure
     install_personal_bin
 
     rc_install bash-bash_profile        .bash_profile
@@ -18,9 +19,11 @@ function install_home_mac {
     rc_install tmux-conf                .tmux.conf
     rc_install tmux-conf_local          .tmux.conf.local
     rc_install vim-vimrc                .vimrc
+    rc_install zsh-mac_zshrc            .zshrc
 }
 
 function install_home_linux {
+    set_up_directory_structure
     install_personal_bin
 
     rc_install bash-bash_profile        .bash_profile
@@ -35,6 +38,7 @@ function install_home_linux {
 }
 
 function install_work_mac {
+    set_up_directory_structure
     install_personal_bin
 
     rc_install bash-bash_profile        .bash_profile
@@ -46,9 +50,11 @@ function install_work_mac {
     rc_install tmux-conf                .tmux.conf
     rc_install tmux-conf_local          .tmux.conf.local
     rc_install vim-vimrc                .vimrc
+    rc_install zsh-mac_zshrc            .zshrc
 }
 
 function install_work_linux {
+    set_up_directory_structure
     install_personal_bin
 
     rc_install gitconfig-work           .gitconfig
