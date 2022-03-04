@@ -33,3 +33,23 @@ function set_up_directory_structure {
     mkdir -p $HOME/var
     mkdir -p $HOME/workspace
 }
+
+function random_digits {
+    length=$1
+    if [ -z $length ] ; then
+        length=4
+    fi
+    ruby -e "Random.bytes($length/2).bytes.map{|b| b.to_s(16)}.join"
+}
+
+function install_with_curl {
+    name="/tmp/$1-$(random_digits)"
+    url=$2
+    run_command=$3
+    hash=$4
+
+    curl -sSLf $url > $name
+
+    # Run command is not quoted because it might have arguments stuffed in
+    openssl sha512 -r $name | grep $hash && cat $name | $run_command
+}
