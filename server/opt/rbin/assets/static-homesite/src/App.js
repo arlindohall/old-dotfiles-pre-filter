@@ -7,7 +7,7 @@ function App() {
         <h1>Welcome to the Hall house!</h1>
         <p>We've got some things you might want to see!</p>
         <ul>
-          <li><a className="App-link" href="http://media.hallhouse.link">Media server</a></li>
+          <li><a className="App-link" href="https://baby.hallhouse.link">BabyBuddy (username: admin/password: admin)</a></li>
         </ul>
       </header>
     </div>
